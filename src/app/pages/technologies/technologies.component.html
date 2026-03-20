@@ -1,0 +1,29 @@
+<section class="section-padding pt-32 min-h-screen">
+  <div class="max-w-4xl mx-auto text-center mb-16">
+    <span class="text-primary-400 font-semibold text-sm uppercase tracking-wider">Tech Stack</span>
+    <h1 class="section-heading text-white mt-4 mb-6">Built with <span class="gradient-text">Modern Technologies</span></h1>
+    <p class="section-subheading mx-auto text-dark-300">
+      We select the best tools for each project to ensure performance, security, and long-term maintainability.
+    </p>
+  </div>
+
+  <div class="max-w-7xl mx-auto flex flex-col gap-12 mb-24">
+    @for (category of techCategories; track category.name) {
+      <div class="glass-card p-8 md:p-12 hover:border-primary-500/30 transition-all duration-300">
+        <div class="mb-8 border-b border-dark-700/50 pb-6">
+          <h2 class="text-2xl font-bold text-white mb-2">{{ category.name }}</h2>
+          <p class="text-dark-300">{{ category.description }}</p>
+        </div>
+        
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+          @for (item of category.items; track item.name) {
+            <div class="flex flex-col items-center justify-center p-6 rounded-xl bg-dark-900 border border-dark-700/30 hover:bg-dark-800 hover:border-primary-500/50 transition-all duration-300 group">
+              <span class="text-4xl mb-3 grayscale group-hover:grayscale-0 transition-all transform group-hover:scale-110 duration-300">{{ item.icon }}</span>
+              <span class="text-sm font-medium text-dark-300 group-hover:text-white transition-colors text-center">{{ item.name }}</span>
+            </div>
+          }
+        </div>
+      </div>
+    }
+  </div>
+</section>

@@ -1,0 +1,61 @@
+<section class="section-padding pt-32 min-h-screen">
+  <div class="max-w-4xl mx-auto text-center mb-16">
+    <span class="text-primary-400 font-semibold text-sm uppercase tracking-wider">Transparent Pricing</span>
+    <h1 class="section-heading text-white mt-4 mb-6">Invest in <span class="gradient-text">Engineering Quality</span></h1>
+    <p class="section-subheading mx-auto text-dark-300">
+      We don't do hidden fees or surprise invoices. Choose the engagement model that fits your product's lifecycle and let's get building.
+    </p>
+  </div>
+
+  <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 mb-24 items-stretch">
+    @for (tier of pricingTiers; track tier.name) {
+      <div 
+        class="glass-card p-8 flex flex-col relative transition-all duration-300 hover:-translate-y-2"
+        [class.border-primary-500]="tier.popular"
+        [class.glow-border]="tier.popular"
+        [class.scale-105]="tier.popular"
+        [class.z-10]="tier.popular"
+        [class.bg-dark-900]="!tier.popular"
+        [class.bg-dark-950]="tier.popular"
+      >
+        @if (tier.popular) {
+          <div class="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-primary-500 text-white text-xs font-bold uppercase tracking-wider shadow-[0_0_10px_rgba(51,132,228,0.5)]">
+            Most Popular
+          </div>
+        }
+        
+        <h3 class="text-2xl font-bold text-white mb-2">{{ tier.name }}</h3>
+        <p class="text-sm text-dark-400 mb-6 min-h-[40px]">{{ tier.description }}</p>
+        
+        <div class="mb-8">
+          <span class="text-4xl font-extrabold text-white tracking-tight">{{ tier.price }}</span>
+          <p class="text-sm text-primary-400 mt-2 font-medium">Est. {{ tier.duration }}</p>
+        </div>
+        
+        <div class="flex-1">
+          <ul class="flex flex-col gap-4 mb-8">
+            @for (feature of tier.features; track feature) {
+              <li class="flex items-start gap-3 text-dark-200 text-sm">
+                <svg class="w-5 h-5 text-primary-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                {{ feature }}
+              </li>
+            }
+          </ul>
+        </div>
+        
+        <a routerLink="/contact" class="w-full text-center" [ngClass]="tier.popular ? 'btn-primary py-4' : 'btn-secondary py-4'">
+          {{ tier.ctaText }}
+        </a>
+      </div>
+    }
+  </div>
+
+  <!-- FAQs / Custom -->
+  <div class="max-w-4xl mx-auto glass-card p-10 flex flex-col md:flex-row items-center justify-between gap-8 border-t-4 border-t-accent-500">
+    <div>
+      <h3 class="text-xl font-bold text-white mb-2">Need a custom team?</h3>
+      <p class="text-dark-300 text-sm">We offer staff augmentation and dedicated agile teams on a monthly retainer basis. Let's discuss your resourcing needs.</p>
+    </div>
+    <a routerLink="/contact" class="btn-primary whitespace-nowrap px-8">Contact Sales</a>
+  </div>
+</section>

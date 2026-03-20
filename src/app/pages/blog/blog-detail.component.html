@@ -1,0 +1,74 @@
+<section class="section-padding pt-32 pb-16 min-h-screen">
+  <div class="max-w-4xl mx-auto">
+    <!-- Back to Blog Link -->
+    <a routerLink="/blog" class="inline-flex items-center text-sm font-medium text-dark-400 hover:text-primary-400 transition-colors mb-10 group">
+      <svg class="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+      Back to all posts
+    </a>
+
+    @if (post) {
+      <div class="mb-12">
+        <div class="flex items-center gap-4 mb-6">
+          <span class="px-3 py-1 rounded-full bg-primary-500/10 text-primary-400 border border-primary-500/20 text-xs font-bold uppercase tracking-wider">{{ post.category }}</span>
+          <span class="text-sm font-medium text-dark-400">{{ post.readTime }}</span>
+        </div>
+        
+        <h1 class="text-3xl md:text-5xl lg:text-6xl font-bold text-white mb-8 leading-[1.15]">{{ post.title }}</h1>
+        
+        <p class="text-xl text-dark-300 leading-relaxed mb-10 border-l-4 border-primary-500 pl-6 py-2">
+          {{ post.excerpt }}
+        </p>
+
+        <!-- Author Info -->
+        <div class="flex items-center justify-between py-6 border-y border-dark-700/50">
+          <div class="flex items-center gap-4">
+            <div class="w-12 h-12 rounded-full bg-dark-800 flex items-center justify-center text-white border border-dark-600 shadow-inner overflow-hidden">
+              <img [src]="'https://api.dicebear.com/7.x/notionists/svg?seed=' + post.author" alt="Author" class="w-full h-full object-cover">
+            </div>
+            <div>
+              <p class="text-base font-semibold text-white">{{ post.author }}</p>
+              <p class="text-sm text-primary-400">Engineering at Innovators</p>
+            </div>
+          </div>
+          <div class="text-dark-400 text-sm font-medium">
+            Published {{ post.date }}
+          </div>
+        </div>
+      </div>
+
+      <!-- Feature Image -->
+      <div class="w-full h-64 md:h-96 rounded-2xl bg-gradient-to-br {{ post.imageGradient }} mb-16 relative overflow-hidden flex items-center justify-center shadow-2xl">
+        <div class="absolute inset-0 bg-dark-950/20 mix-blend-overlay"></div>
+        <div class="absolute top-1/4 -right-20 w-80 h-80 bg-white/10 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-1/4 -left-20 w-80 h-80 bg-black/30 rounded-full blur-3xl"></div>
+        
+        <!-- Icon -->
+        <svg class="w-32 h-32 text-white/40 drop-shadow-2xl relative z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 002-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+      </div>
+
+      <!-- Article Content -->
+      <article class="prose prose-invert prose-lg max-w-none mb-20 prose-headings:font-bold prose-headings:text-white prose-a:text-primary-400 prose-a:no-underline hover:prose-a:underline prose-li:text-dark-300 prose-p:text-dark-300 prose-p:leading-relaxed prose-strong:text-white" [innerHTML]="post.content">
+      </article>
+
+      <!-- CTA / Next Steps -->
+      <div class="glass-card p-10 md:p-14 text-center glow-border rounded-3xl relative overflow-hidden">
+        <div class="absolute inset-0 bg-primary-500/5 mix-blend-overlay"></div>
+        <h3 class="text-2xl md:text-3xl font-bold text-white mb-4 relative z-10">Did you find this insightful?</h3>
+        <p class="text-lg text-dark-300 mb-8 max-w-2xl mx-auto relative z-10">
+          Subscribe to our newsletter for more technical deep dives, or reach out to our team if you need help scaling your architecture.
+        </p>
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4 relative z-10">
+          <a routerLink="/contact" class="btn-primary text-base px-8 py-3.5 w-full sm:w-auto">Start a Conversation</a>
+          <button class="btn-secondary text-base px-8 py-3.5 w-full sm:w-auto">Subscribe</button>
+        </div>
+      </div>
+    } @else {
+      <!-- Not Found State -->
+      <div class="text-center py-32">
+        <h2 class="text-4xl font-bold text-white mb-4">Post Not Found</h2>
+        <p class="text-dark-300 mb-8">The article you're looking for doesn't exist or has been moved.</p>
+        <a routerLink="/blog" class="btn-primary">Return to Blog</a>
+      </div>
+    }
+  </div>
+</section>

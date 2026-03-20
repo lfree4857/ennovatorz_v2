@@ -1,0 +1,121 @@
+<section class="section-padding pt-32 min-h-screen">
+  <div class="max-w-4xl mx-auto text-center mb-16">
+    <span class="text-primary-400 font-semibold text-sm uppercase tracking-wider">Insights & Updates</span>
+    <h1 class="section-heading text-white mt-4 mb-6">The Innovators <span class="gradient-text">Engineering Blog</span></h1>
+    <p class="section-subheading mx-auto text-dark-300">
+      Deep dives into software architecture, frontend performance, developer culture, and the tools we use to build scalable products.
+    </p>
+  </div>
+
+  <div class="max-w-7xl mx-auto">
+    <!-- Filters -->
+    <div class="flex flex-wrap flex-col sm:flex-row items-center justify-center gap-2 mb-16">
+      <span class="text-dark-400 text-sm mb-2 sm:mb-0 sm:mr-4 font-medium">Filter by Topic:</span>
+      <div class="flex flex-wrap gap-2 justify-center">
+        @for (cat of categories; track cat) {
+          <button 
+            (click)="setCategory(cat)"
+            class="px-5 py-2 rounded-full text-sm font-medium transition-all duration-300 border"
+            [class.bg-primary-500]="activeCategory === cat"
+            [class.text-white]="activeCategory === cat"
+            [class.border-primary-500]="activeCategory === cat"
+            [class.bg-dark-900]="activeCategory !== cat"
+            [class.text-dark-300]="activeCategory !== cat"
+            [class.border-dark-700]="activeCategory !== cat"
+            [class.hover:border-primary-500/50]="activeCategory !== cat"
+            [class.hover:text-white]="activeCategory !== cat"
+          >
+            {{ cat }}
+          </button>
+        }
+      </div>
+    </div>
+
+    <!-- Featured Post (First one in filtered list, if available) -->
+    @if (filteredPosts.length > 0) {
+      <div class="mb-16 glass-card overflow-hidden group hover:border-primary-500/30 transition-all duration-300 hover:-translate-y-1 glow-border relative cursor-pointer" [routerLink]="'/blog/' + filteredPosts[0].slug">
+        <div class="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-dark-950 via-dark-900/80 to-transparent z-10 pointer-events-none"></div>
+        
+        <!-- Large Gradient Abstract Header -->
+        <div class="h-[400px] w-full bg-gradient-to-br {{ filteredPosts[0].imageGradient }} relative overflow-hidden flex items-center justify-center">
+          <div class="absolute inset-0 bg-dark-950/20 group-hover:bg-transparent transition-colors duration-700 mix-blend-overlay"></div>
+          <!-- Decorative shapes -->
+          <div class="absolute top-10 left-10 w-64 h-64 rounded-full bg-white/5 blur-3xl transform group-hover:scale-150 transition-transform duration-1000"></div>
+          <div class="absolute bottom-10 right-10 w-96 h-96 rounded-full bg-black/20 blur-3xl transform group-hover:-translate-x-10 transition-transform duration-1000"></div>
+        </div>
+        
+        <!-- Content Overlay -->
+        <div class="absolute inset-x-0 bottom-0 z-20 p-8 md:p-12">
+          <div class="flex items-center gap-4 mb-4">
+            <span class="px-3 py-1 rounded-full bg-primary-500 text-white text-xs font-bold uppercase tracking-wider shadow-lg">{{ filteredPosts[0].category }}</span>
+            <span class="text-sm font-medium text-dark-200">{{ filteredPosts[0].readTime }}</span>
+          </div>
+          <h2 class="text-3xl md:text-5xl font-bold text-white mb-4 leading-tight group-hover:text-primary-400 transition-colors drop-shadow-md">{{ filteredPosts[0].title }}</h2>
+          <p class="text-lg text-dark-200 line-clamp-2 max-w-3xl mb-6 shadow-black drop-shadow-sm">{{ filteredPosts[0].excerpt }}</p>
+          
+          <div class="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-white/10 w-full md:w-3/4">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-full bg-dark-800 flex items-center justify-center text-white border border-dark-600 shadow-inner overflow-hidden">
+                <img [src]="'https://api.dicebear.com/7.x/notionists/svg?seed=' + filteredPosts[0].author" alt="Author" class="w-full h-full object-cover">
+              </div>
+              <p class="text-sm font-semibold text-white">{{ filteredPosts[0].author }}</p>
+            </div>
+            <p class="text-sm text-dark-300 font-medium">{{ filteredPosts[0].date }}</p>
+          </div>
+        </div>
+      </div>
+    }
+
+    <!-- Blog Grid (Remaining Posts) -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-24">
+      @for (post of (filteredPosts.length > 1 ? filteredPosts.slice(1) : []); track post.slug) {
+        <div class="glass-card flex flex-col overflow-hidden group hover:border-primary-500/30 transition-all duration-300 hover:-translate-y-1 cursor-pointer" [routerLink]="'/blog/' + post.slug">
+          
+          <!-- Image/Gradient Placeholder -->
+          <div class="h-48 bg-gradient-to-br {{ post.imageGradient }} relative overflow-hidden">
+            <div class="absolute inset-0 bg-dark-950/10 group-hover:bg-transparent transition-colors duration-500 mix-blend-overlay"></div>
+          </div>
+          
+          <div class="p-6 flex-1 flex flex-col">
+            <div class="flex items-center justify-between mb-4">
+              <span class="text-xs font-semibold text-primary-400 uppercase tracking-wider">{{ post.category }}</span>
+              <span class="text-xs text-dark-400 font-medium">{{ post.readTime }}</span>
+            </div>
+            
+            <h3 class="text-xl font-bold text-white mb-3 group-hover:text-primary-400 transition-colors line-clamp-2">{{ post.title }}</h3>
+            <p class="text-dark-400 text-sm leading-relaxed mb-6 flex-1 line-clamp-3">{{ post.excerpt }}</p>
+            
+            <div class="flex items-center justify-between pt-4 border-t border-dark-700/50">
+              <div class="flex items-center gap-2">
+                <div class="w-8 h-8 rounded-full bg-dark-800 flex items-center justify-center text-white border border-dark-600 shadow-inner text-xs overflow-hidden">
+                  <img [src]="'https://api.dicebear.com/7.x/notionists/svg?seed=' + post.author" alt="Author" class="w-full h-full object-cover">
+                </div>
+                <span class="text-xs text-dark-200 font-medium">{{ post.author }}</span>
+              </div>
+              <span class="text-xs text-dark-500 font-medium">{{ post.date }}</span>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+
+    @if (filteredPosts.length === 0) {
+      <div class="text-center py-20">
+        <p class="text-dark-400 text-lg">No articles found in this category.</p>
+        <button (click)="setCategory('All')" class="btn-secondary mt-4">View All Posts</button>
+      </div>
+    }
+
+    <!-- Newsletter CTA -->
+    <div class="max-w-3xl mx-auto glass-card p-10 flex flex-col md:flex-row items-center justify-between gap-8 border-t-4 border-t-primary-500 glow-border">
+      <div class="md:w-1/2">
+        <h3 class="text-xl font-bold text-white mb-2">Subscribe to our newsletter</h3>
+        <p class="text-dark-300 text-sm">Get the latest engineering insights, architecture teardowns, and tech news delivered straight to your inbox once a month. No spam.</p>
+      </div>
+      <div class="md:w-1/2 w-full flex flex-col sm:flex-row gap-2">
+        <input type="email" placeholder="Email address" class="flex-1 bg-dark-900 border border-dark-700/50 rounded-lg px-4 py-3 text-white placeholder-dark-500 focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500" />
+        <button class="btn-primary whitespace-nowrap">Subscribe</button>
+      </div>
+    </div>
+  </div>
+</section>

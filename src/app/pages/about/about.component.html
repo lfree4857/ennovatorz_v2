@@ -1,0 +1,37 @@
+<section class="section-padding pt-32 min-h-screen">
+  <div class="max-w-4xl mx-auto text-center mb-16" data-aos="fade-up">
+    <span class="text-primary-400 font-semibold text-sm uppercase tracking-wider">Our Story</span>
+    <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-dark-50 mb-6"><span class="gradient-text">Engineering</span> the Future</h1>
+    <p data-aos="fade-up" data-aos-delay="100" class="section-subheading mx-auto text-dark-300">
+      We are a collaborative team of experienced developers delivering world-class products. We founded Innovators with a simple mission: to build software that scales securely and performs flawlessly. 
+    </p>
+  </div>
+
+  <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center mb-24">
+    <div class="glass-card p-10 h-full flex flex-col justify-center" data-aos="fade-right">
+      <h2 class="text-2xl font-bold text-dark-50 mb-4">Our Mission</h2>
+      <p class="text-dark-300 leading-relaxed mb-6">
+        To empower startups and enterprises by providing elite engineering talent. We aim to bridge the gap between bold ideas and robust technical execution. We don't just write code; we architect solutions that drive business growth.
+      </p>
+      <h2 class="text-2xl font-bold text-dark-50 mb-4">Our Vision</h2>
+      <p class="text-dark-300 leading-relaxed">
+        To be the global standard for high-quality software development agencies, recognized for our uncompromising technical standards and our commitment to our clients' long-term success.
+      </p>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 h-full">
+      @for (value of teamValues; track value.title; let i = $index) {
+        <div class="glass-card p-6 flex flex-col justify-center hover:border-primary-500/30 transition-colors" [attr.data-aos]="'fade-left'" [attr.data-aos-delay]="i * 100">
+          <h3 class="text-lg font-semibold text-dark-50 mb-3">{{ value.title }}</h3>
+          <p class="text-sm text-dark-400 leading-relaxed">{{ value.description }}</p>
+        </div>
+      }
+    </div>
+  </div>
+
+  <!-- Join Us CTA -->
+  <div class="max-w-4xl mx-auto text-center glass-card p-12 glow-border" data-aos="zoom-in">
+    <h2 class="text-2xl font-bold text-dark-50 mb-4">We are always looking for great talent</h2>
+    <p class="text-dark-300 mb-8 mx-auto max-w-lg">If you love solving hard problems and building scalable software, we want you on our team.</p>
+    <a routerLink="/careers" class="btn-primary">View Open Positions</a>
+  </div>
+</section>
