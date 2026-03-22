@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
-import { LoaderService } from '../../shared/services/loader.service';
+import { HttpService } from '../../services/http.service';
+import { LoaderService } from '../../services/loader.service';
 
 @Component({
   selector: 'app-contact',
@@ -18,7 +18,7 @@ export class ContactComponent {
 
   constructor(
     private fb: FormBuilder,
-    private http: HttpClient,
+    private http: HttpService,
     private loaderService: LoaderService
   ) {
     this.contactForm = this.fb.group({
@@ -38,7 +38,7 @@ export class ContactComponent {
       this.isSubmitted = false;
       this.loaderService.show();
 
-      this.http.post('http://localhost:3001/inquiry', this.contactForm.value).subscribe({
+      this.http.post('/inquiry', this.contactForm.value).subscribe({
         next: () => {
           this.loaderService.hide();
           this.isSubmitting = false;

@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { LoaderService } from '../../services/loader.service';
+import { LoaderService } from '../../../services/loader.service';
 import { NgIf } from '@angular/common'; // Fallback if @if isn't perfectly supported in context
 
 @Component({
