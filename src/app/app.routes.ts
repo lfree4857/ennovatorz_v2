@@ -46,6 +46,25 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/careers/careers.component').then(m => m.CareersComponent),
   },
   {
+    path: 'admin',
+    loadComponent: () => import('./pages/admin/layout/admin-layout.component').then(m => m.AdminLayoutComponent),
+    children: [
+      { path: '', redirectTo: 'blog', pathMatch: 'full' },
+      {
+        path: 'blog',
+        loadComponent: () => import('./pages/admin/blog-list/admin-blog-list.component').then(m => m.AdminBlogListComponent),
+      },
+      {
+        path: 'blog/create',
+        loadComponent: () => import('./pages/admin/blog-form/admin-blog-form.component').then(m => m.AdminBlogFormComponent),
+      },
+      {
+        path: 'blog/edit/:id',
+        loadComponent: () => import('./pages/admin/blog-form/admin-blog-form.component').then(m => m.AdminBlogFormComponent),
+      },
+    ]
+  },
+  {
     path: '**',
     redirectTo: '',
   },
