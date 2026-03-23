@@ -6,45 +6,42 @@
       Back to all posts
     </a>
 
-    @if (post) {
+    @if (loading) {
+      <div class="text-center py-32 text-dark-400">Loading...</div>
+    } @else if (post) {
       <div class="mb-12">
         <div class="flex items-center gap-4 mb-6">
-          <span class="px-3 py-1 rounded-full bg-primary-500/10 text-primary-400 border border-primary-500/20 text-xs font-bold uppercase tracking-wider">{{ post.category }}</span>
+          <span class="px-3 py-1 rounded-full bg-primary-500/10 text-primary-400 border border-primary-500/20 text-xs font-bold uppercase tracking-wider">{{ post.topic }}</span>
           <span class="text-sm font-medium text-dark-400">{{ post.readTime }}</span>
         </div>
-        
+
         <h1 class="text-3xl md:text-5xl lg:text-6xl font-bold text-white mb-8 leading-[1.15]">{{ post.title }}</h1>
-        
+
         <p class="text-xl text-dark-300 leading-relaxed mb-10 border-l-4 border-primary-500 pl-6 py-2">
-          {{ post.excerpt }}
+          {{ post.shortDescription }}
         </p>
 
         <!-- Author Info -->
         <div class="flex items-center justify-between py-6 border-y border-dark-700/50">
           <div class="flex items-center gap-4">
             <div class="w-12 h-12 rounded-full bg-dark-800 flex items-center justify-center text-white border border-dark-600 shadow-inner overflow-hidden">
-              <img [src]="'https://api.dicebear.com/7.x/notionists/svg?seed=' + post.author" alt="Author" class="w-full h-full object-cover">
+              <img [src]="'https://api.dicebear.com/7.x/notionists/svg?seed=' + post.authorName" alt="Author" class="w-full h-full object-cover">
             </div>
             <div>
-              <p class="text-base font-semibold text-white">{{ post.author }}</p>
+              <p class="text-base font-semibold text-white">{{ post.authorName }}</p>
               <p class="text-sm text-primary-400">Engineering at Innovators</p>
             </div>
           </div>
-          <div class="text-dark-400 text-sm font-medium">
-            Published {{ post.date }}
-          </div>
+          <div class="text-dark-400 text-sm font-medium">Published {{ post.createdAt | date:'MMM d, y' }}</div>
         </div>
       </div>
 
       <!-- Feature Image -->
-      <div class="w-full h-64 md:h-96 rounded-2xl bg-gradient-to-br {{ post.imageGradient }} mb-16 relative overflow-hidden flex items-center justify-center shadow-2xl">
-        <div class="absolute inset-0 bg-dark-950/20 mix-blend-overlay"></div>
-        <div class="absolute top-1/4 -right-20 w-80 h-80 bg-white/10 rounded-full blur-3xl"></div>
-        <div class="absolute bottom-1/4 -left-20 w-80 h-80 bg-black/30 rounded-full blur-3xl"></div>
-        
-        <!-- Icon -->
-        <svg class="w-32 h-32 text-white/40 drop-shadow-2xl relative z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 002-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
-      </div>
+      @if (post.imageUrl) {
+        <div class="w-full h-64 md:h-96 rounded-2xl mb-16 overflow-hidden shadow-2xl">
+          <img [src]="getImageUrl(post.imageUrl)" alt="Cover" class="w-full h-full object-cover" />
+        </div>
+      }
 
       <!-- Article Content -->
       <article class="prose prose-invert prose-lg max-w-none mb-20 prose-headings:font-bold prose-headings:text-white prose-a:text-primary-400 prose-a:no-underline hover:prose-a:underline prose-li:text-dark-300 prose-p:text-dark-300 prose-p:leading-relaxed prose-strong:text-white" [innerHTML]="post.content">
