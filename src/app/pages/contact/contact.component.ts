@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { APP_MESSAGES } from '../../shared/constants/messages.constant';
 import { HttpService } from '../../services/http.service';
 import { LoaderService } from '../../services/loader.service';
+import { ToasterService } from '../../services/toaster.service';
 
 @Component({
   selector: 'app-contact',
@@ -19,7 +21,8 @@ export class ContactComponent {
   constructor(
     private fb: FormBuilder,
     private http: HttpService,
-    private loaderService: LoaderService
+    private loaderService: LoaderService,
+    private toasterService: ToasterService
   ) {
     this.contactForm = this.fb.group({
       fullName: ['', Validators.required],
@@ -43,6 +46,7 @@ export class ContactComponent {
           this.loaderService.hide();
           this.isSubmitting = false;
           this.isSubmitted = true;
+          this.toasterService.success(APP_MESSAGES.SUCCESS.INQUIRY_SUBMITTED);
           this.contactForm.reset();
           this.contactForm.patchValue({ budget: '', service: '' });
           setTimeout(() => {
@@ -54,6 +58,7 @@ export class ContactComponent {
           this.loaderService.hide();
           this.isSubmitting = false;
           this.submitError = true;
+          this.toasterService.error(APP_MESSAGES.ERROR.INQUIRY_FAILED);
         }
       });
     } else {
