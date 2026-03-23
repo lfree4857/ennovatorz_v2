@@ -1,5 +1,5 @@
-import { HttpInterceptorFn, HttpErrorResponse } from '@angular/common/http';
-import { catchError } from 'rxjs/operators';
+import { HttpInterceptorFn, HttpErrorResponse, HttpResponse } from '@angular/common/http';
+import { catchError, map } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { environment } from '../../../environments/environment';
 
@@ -13,6 +13,17 @@ export const apiInterceptor: HttpInterceptorFn = (req, next) => {
   });
 
   return next(apiReq).pipe(
+    map((event) => {
+      // Automatically unwrap the standard backend `{ success: true, data: ... }` JSON structure
+      if (event instanceof HttpResponse && event.body) {
+        const body = event.body as any;
+        if (typeof body.success !== 'undefined') {
+          const unwrappedBody = body.data !== undefined ? body.data : body;
+          return event.clone({ body: unwrappedBody });
+        }
+      }
+      return event;
+    }),
     catchError((error: HttpErrorResponse) => {
       let errorMsg = '';
       if (error.error instanceof ErrorEvent) {
