@@ -2,7 +2,7 @@
   <div class="max-w-3xl mx-auto">
 
     <div class="flex items-center justify-between mb-10">
-      <h1 class="text-2xl font-bold text-white">{{ isEditMode ? 'Edit Post' : 'Create New Post' }}</h1>
+      <h1 class="text-2xl font-bold text-dark-50">{{ isEditMode ? 'Edit Post' : 'Create New Post' }}</h1>
       <a routerLink="/admin/blog" class="inline-flex items-center text-sm text-dark-400 hover:text-primary-400 transition-colors group">
         <svg class="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
@@ -11,104 +11,131 @@
       </a>
     </div>
 
-    @if (error) {
-      <div class="mb-6 px-4 py-3 rounded-lg bg-red-500/10 border border-red-500/30 text-red-400 text-sm">{{ error }}</div>
-    }
+    <form [formGroup]="form" (ngSubmit)="submit()" class="glass-card p-8 md:p-10 glow-border">
+      <h2 class="text-2xl font-bold text-dark-50 mb-6">{{ isEditMode ? 'Update Post Details' : 'Post Details' }}</h2>
 
-    <form [formGroup]="form" (ngSubmit)="submit()" class="glass-card p-8 flex flex-col gap-6">
+      @if (error) {
+        <div class="p-4 mb-8 rounded-lg bg-red-500/10 border border-red-500/20 text-red-400 flex items-start gap-3">
+          <svg class="w-6 h-6 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+          </svg>
+          <div>
+            <h4 class="font-semibold mb-1">{{ isEditMode ? 'Update Failed' : 'Submission Failed' }}</h4>
+            <p class="text-sm opacity-90">{{ error }}</p>
+          </div>
+        </div>
+      }
 
-      <!-- Title -->
-      <div>
-        <label class="block text-sm font-medium text-dark-300 mb-2">Title <span class="text-red-400">*</span></label>
-        <input formControlName="title" type="text" placeholder="Enter blog title"
-          class="w-full border border-dark-700/50 rounded-lg px-4 py-3 placeholder-dark-500 focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition-[border-color]" style="background-color:#1e293b; color:#fff;" />
-        @if (form.get('title')?.invalid && form.get('title')?.touched) {
-          <p class="text-red-400 text-xs mt-1">Title is required.</p>
-        }
-      </div>
+      <div class="space-y-6">
 
-      <!-- Short Description -->
-      <div>
-        <label class="block text-sm font-medium text-dark-300 mb-2">Short Description <span class="text-red-400">*</span></label>
-        <textarea formControlName="shortDescription" rows="2" placeholder="Brief summary shown on the blog listing"
-          class="w-full border border-dark-700/50 rounded-lg px-4 py-3 placeholder-dark-500 focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition-[border-color] resize-none" style="background-color:#1e293b; color:#fff;"></textarea>
-        @if (form.get('shortDescription')?.invalid && form.get('shortDescription')?.touched) {
-          <p class="text-red-400 text-xs mt-1">Short description is required.</p>
-        }
-      </div>
-
-      <!-- Content -->
-      <div>
-        <label class="block text-sm font-medium text-dark-300 mb-2">Content <span class="text-red-400">*</span></label>
-        <textarea formControlName="content" rows="10" placeholder="Full blog content (HTML supported)"
-          class="w-full border border-dark-700/50 rounded-lg px-4 py-3 placeholder-dark-500 focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition-[border-color] resize-y font-mono text-sm" style="background-color:#1e293b; color:#fff;"></textarea>
-        @if (form.get('content')?.invalid && form.get('content')?.touched) {
-          <p class="text-red-400 text-xs mt-1">Content is required.</p>
-        }
-      </div>
-
-      <!-- Topic & Read Time -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+        <!-- Title -->
         <div>
-          <label class="block text-sm font-medium text-dark-300 mb-2">Topic <span class="text-red-400">*</span></label>
-          <select formControlName="topic"
-            class="w-full border border-dark-700/50 rounded-lg px-4 py-3 focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition-[border-color]" style="background-color:#1e293b; color:#fff;">
-            <option value="" disabled>Select a topic</option>
-            @for (topic of topics; track topic) {
-              <option [value]="topic">{{ topic }}</option>
+          <label class="block text-sm font-medium text-dark-300 mb-2">Title <span class="text-red-400">*</span></label>
+          <input formControlName="title" type="text" placeholder="Enter blog title"
+            class="w-full px-4 py-3 bg-dark-900 border border-dark-700 rounded-xl text-dark-50 placeholder-dark-500 focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition-all"
+            [class.border-red-500]="form.get('title')?.invalid && form.get('title')?.touched" />
+          @if (form.get('title')?.invalid && form.get('title')?.touched) {
+            <p class="text-red-500 text-xs mt-1">Title is required.</p>
+          }
+        </div>
+
+        <!-- Short Description -->
+        <div>
+          <label class="block text-sm font-medium text-dark-300 mb-2">Short Description <span class="text-red-400">*</span></label>
+          <textarea formControlName="shortDescription" rows="2" placeholder="Brief summary shown on the blog listing"
+            class="w-full px-4 py-3 bg-dark-900 border border-dark-700 rounded-xl text-dark-50 placeholder-dark-500 focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition-all resize-none"
+            [class.border-red-500]="form.get('shortDescription')?.invalid && form.get('shortDescription')?.touched"></textarea>
+          @if (form.get('shortDescription')?.invalid && form.get('shortDescription')?.touched) {
+            <p class="text-red-500 text-xs mt-1">Short description is required.</p>
+          }
+        </div>
+
+        <!-- Content -->
+        <div>
+          <label class="block text-sm font-medium text-dark-300 mb-2">Content <span class="text-red-400">*</span></label>
+          <textarea formControlName="content" rows="10" placeholder="Full blog content (HTML supported)"
+            class="w-full px-4 py-3 bg-dark-900 border border-dark-700 rounded-xl text-dark-50 placeholder-dark-500 focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition-all resize-y font-mono text-sm"
+            [class.border-red-500]="form.get('content')?.invalid && form.get('content')?.touched"></textarea>
+          @if (form.get('content')?.invalid && form.get('content')?.touched) {
+            <p class="text-red-500 text-xs mt-1">Content is required.</p>
+          }
+        </div>
+
+        <!-- Topic & Read Time -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <div>
+            <label class="block text-sm font-medium text-dark-300 mb-2">Topic <span class="text-red-400">*</span></label>
+            <select formControlName="topic"
+              class="w-full px-4 py-3 bg-dark-900 border border-dark-700 rounded-xl text-dark-50 appearance-none focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition-all"
+              [class.border-red-500]="form.get('topic')?.invalid && form.get('topic')?.touched">
+              <option value="" disabled>Select a topic</option>
+              @for (topic of topics; track topic) {
+                <option [value]="topic">{{ topic }}</option>
+              }
+            </select>
+            @if (form.get('topic')?.invalid && form.get('topic')?.touched) {
+              <p class="text-red-500 text-xs mt-1">Topic is required.</p>
             }
-          </select>
-          @if (form.get('topic')?.invalid && form.get('topic')?.touched) {
-            <p class="text-red-400 text-xs mt-1">Topic is required.</p>
-          }
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-dark-300 mb-2">Read Time <span class="text-red-400">*</span></label>
+            <input formControlName="readTime" type="text" placeholder="e.g. 5 min read"
+              class="w-full px-4 py-3 bg-dark-900 border border-dark-700 rounded-xl text-dark-50 placeholder-dark-500 focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition-all"
+              [class.border-red-500]="form.get('readTime')?.invalid && form.get('readTime')?.touched" />
+            @if (form.get('readTime')?.invalid && form.get('readTime')?.touched) {
+              <p class="text-red-500 text-xs mt-1">Read time is required.</p>
+            }
+          </div>
         </div>
 
+        <!-- Author Name -->
         <div>
-          <label class="block text-sm font-medium text-dark-300 mb-2">Read Time <span class="text-red-400">*</span></label>
-          <input formControlName="readTime" type="text" placeholder="e.g. 5 min read"
-            class="w-full border border-dark-700/50 rounded-lg px-4 py-3 placeholder-dark-500 focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition-[border-color]" style="background-color:#1e293b; color:#fff;" />
-          @if (form.get('readTime')?.invalid && form.get('readTime')?.touched) {
-            <p class="text-red-400 text-xs mt-1">Read time is required.</p>
+          <label class="block text-sm font-medium text-dark-300 mb-2">Author Name <span class="text-red-400">*</span></label>
+          <input formControlName="authorName" type="text" placeholder="e.g. John Doe"
+            class="w-full px-4 py-3 bg-dark-900 border border-dark-700 rounded-xl text-dark-50 placeholder-dark-500 focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition-all"
+            [class.border-red-500]="form.get('authorName')?.invalid && form.get('authorName')?.touched" />
+          @if (form.get('authorName')?.invalid && form.get('authorName')?.touched) {
+            <p class="text-red-500 text-xs mt-1">Author name is required.</p>
           }
         </div>
-      </div>
 
-      <!-- Author Name -->
-      <div>
-        <label class="block text-sm font-medium text-dark-300 mb-2">Author Name <span class="text-red-400">*</span></label>
-        <input formControlName="authorName" type="text" placeholder="e.g. John Doe"
-          class="w-full border border-dark-700/50 rounded-lg px-4 py-3 placeholder-dark-500 focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition-[border-color]" style="background-color:#1e293b; color:#fff;" />
-        @if (form.get('authorName')?.invalid && form.get('authorName')?.touched) {
-          <p class="text-red-400 text-xs mt-1">Author name is required.</p>
-        }
-      </div>
+        <!-- Cover Image -->
+        <div>
+          <label class="block text-sm font-medium text-dark-300 mb-2">Cover Image</label>
+          <div class="border-2 border-dashed border-dark-700 rounded-xl p-6 text-center hover:border-primary-500/50 transition-all cursor-pointer"
+            (click)="fileInput.click()">
+            @if (imagePreview) {
+              <img [src]="imagePreview" alt="Preview" class="max-h-48 mx-auto rounded-lg object-cover mb-3" />
+              <p class="text-xs text-dark-500">Click to change image</p>
+            } @else {
+              <svg class="w-10 h-10 text-dark-600 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+              </svg>
+              <p class="text-dark-400 text-sm">Click to upload cover image</p>
+              <p class="text-dark-500 text-xs mt-1">JPG, PNG, WEBP supported</p>
+            }
+            <input #fileInput type="file" accept="image/*" class="hidden" (change)="onFileChange($event)" />
+          </div>
+        </div>
 
-      <!-- Cover Image -->
-      <div>
-        <label class="block text-sm font-medium text-dark-300 mb-2">Cover Image</label>
-        <div class="border-2 border-dashed border-dark-700/50 rounded-lg p-6 text-center hover:border-primary-500/50 transition-colors cursor-pointer relative"
-          (click)="fileInput.click()">
-          @if (imagePreview) {
-            <img [src]="imagePreview" alt="Preview" class="max-h-48 mx-auto rounded-lg object-cover mb-3" />
-            <p class="text-xs text-dark-400">Click to change image</p>
+        <!-- Submit -->
+        <button type="submit" [disabled]="submitting"
+          class="btn-primary w-full py-4 text-base font-bold shadow-[0_0_20px_rgba(51,132,228,0.3)] hover:shadow-primary-500/50 mt-4 disabled:opacity-50 disabled:cursor-not-allowed">
+          @if (submitting) {
+            <span class="flex items-center justify-center gap-2">
+              <svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              </svg>
+              Saving...
+            </span>
           } @else {
-            <svg class="w-10 h-10 text-dark-600 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-            </svg>
-            <p class="text-dark-400 text-sm">Click to upload cover image</p>
-            <p class="text-dark-600 text-xs mt-1">JPG, PNG, WEBP supported</p>
+            {{ isEditMode ? 'Update Post' : 'Publish Post' }}
           }
-          <input #fileInput type="file" accept="image/*" class="hidden" (change)="onFileChange($event)" />
-        </div>
-      </div>
-
-      <!-- Actions -->
-      <div class="flex items-center justify-end gap-4 pt-2 border-t border-dark-700/50">
-        <button type="submit" class="btn-primary" [disabled]="submitting">
-          {{ submitting ? 'Saving...' : (isEditMode ? 'Update Post' : 'Publish Post') }}
         </button>
-      </div>
 
+      </div>
     </form>
   </div>
 </section>

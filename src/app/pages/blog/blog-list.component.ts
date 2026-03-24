@@ -1,9 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { DatePipe } from '@angular/common';
-import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { BlogService, Blog } from '../../services/blog.service';
-import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-blog-list',
@@ -14,24 +12,18 @@ import { environment } from '../../../environments/environment';
 })
 export class BlogListComponent implements OnInit {
   blogService = inject(BlogService);
-  private sanitizer = inject(DomSanitizer);
 
   categories: string[] = ['All'];
   activeCategory = 'All';
   posts: Blog[] = [];
   loading = true;
 
-  getImageUrl(imageUrl?: string): SafeUrl {
-    if (!imageUrl) return '';
-    const url = imageUrl.startsWith('http') ? imageUrl : `${environment.apiUrl}${imageUrl}`;
-    return this.sanitizer.bypassSecurityTrustUrl(url);
-  }
-
   ngOnInit() {
     this.blogService.getAll().subscribe({
-      next: (data) => {
-        this.posts = data;
-        const topics = [...new Set(data.map(p => p.topic).filter(Boolean))];
+      next: (data: any) => {
+        const blogs = Array.isArray(data) ? data : (data?.data ?? []);
+        this.posts = blogs;
+        const topics = [...new Set<string>(blogs.map((p: any) => p.topic).filter(Boolean))];
         this.categories = ['All', ...topics];
         this.loading = false;
       },

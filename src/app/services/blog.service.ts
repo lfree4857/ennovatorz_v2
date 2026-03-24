@@ -3,6 +3,13 @@ import { Observable } from 'rxjs';
 import { HttpService } from './http.service';
 import { environment } from '../../environments/environment';
 
+export interface ApiResponse<T> {
+  success: boolean;
+  statusCode: number;
+  message: string;
+  data: T | null;
+}
+
 export interface Blog {
   _id: string;
   id?: string;
@@ -35,15 +42,15 @@ export class BlogService {
     return this.http.get<Blog>(`blog/${id}`);
   }
 
-  create(formData: FormData): Observable<Blog> {
-    return this.http.post<Blog>('blog', formData);
+  create(formData: FormData): Observable<ApiResponse<Blog>> {
+    return this.http.post<ApiResponse<Blog>>('blog', formData);
   }
 
-  update(id: string, formData: FormData): Observable<Blog> {
-    return this.http.patch<Blog>(`blog/${id}`, formData);
+  update(id: string, formData: FormData): Observable<ApiResponse<Blog>> {
+    return this.http.patch<ApiResponse<Blog>>(`blog/${id}`, formData);
   }
 
-  delete(id: string): Observable<void> {
-    return this.http.delete<void>(`blog/${id}`);
+  delete(id: string): Observable<ApiResponse<void>> {
+    return this.http.delete<ApiResponse<void>>(`blog/${id}`);
   }
 }

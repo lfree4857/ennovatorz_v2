@@ -84,7 +84,7 @@ export class AdminBlogFormComponent implements OnInit {
       : this.blogService.create(formData);
 
     request$.subscribe({
-      next: () => this.router.navigate(['/admin/blog']),
+      next: (res) => { if (res.success) this.router.navigate(['/admin/blog']); },
       error: () => { this.error = 'Failed to save blog. Please try again.'; this.submitting = false; }
     });
   }

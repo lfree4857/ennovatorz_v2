@@ -27,7 +27,7 @@ export class BlogDetailComponent implements OnInit {
       const id = params.get('slug');
       if (!id) { this.loading = false; return; }
       this.blogService.getById(id).subscribe({
-        next: (data) => { this.post = data; this.loading = false; },
+        next: (data: any) => { this.post = data?._id ? data : (data?.data ?? null); this.loading = false; },
         error: () => { this.post = null; this.loading = false; }
       });
     });

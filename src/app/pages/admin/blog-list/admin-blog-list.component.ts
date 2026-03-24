@@ -24,7 +24,7 @@ export class AdminBlogListComponent implements OnInit {
   loadBlogs() {
     this.loading = true;
     this.blogService.getAll().subscribe({
-      next: (data) => { this.blogs = data; this.loading = false; },
+      next: (data: any) => { this.blogs = Array.isArray(data) ? data : (data?.data ?? []); this.loading = false; },
       error: () => { this.error = 'Failed to load blogs.'; this.loading = false; }
     });
   }
@@ -44,9 +44,11 @@ export class AdminBlogListComponent implements OnInit {
     });
     if (!result.isConfirmed) return;
     this.blogService.delete(id).subscribe({
-      next: () => {
-        this.blogs = this.blogs.filter(b => b._id !== id);
-        Swal.fire({ title: 'Deleted!', icon: 'success', background: '#1e293b', color: '#f8fafc', confirmButtonColor: '#6366f1', timer: 1500, showConfirmButton: false });
+      next: (res) => {
+        if (res.success) {
+          this.blogs = this.blogs.filter(b => b._id !== id);
+          Swal.fire({ title: 'Deleted!', icon: 'success', background: '#1e293b', color: '#f8fafc', confirmButtonColor: '#6366f1', timer: 1500, showConfirmButton: false });
+        }
       },
       error: () => Swal.fire({ title: 'Error', text: 'Failed to delete blog.', icon: 'error', background: '#1e293b', color: '#f8fafc', confirmButtonColor: '#6366f1' })
     });
