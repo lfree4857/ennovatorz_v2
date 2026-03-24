@@ -2,7 +2,8 @@ import { Component, OnInit, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { BlogService, Blog } from '../../../services/blog.service';
-import Swal from 'sweetalert2';
+import { ToasterService } from '../../../services/toaster.service';
+import { APP_MESSAGES } from '../../../shared/constants/messages.constant';
 
 @Component({
   selector: 'app-admin-blog-list',
@@ -12,10 +13,12 @@ import Swal from 'sweetalert2';
 })
 export class AdminBlogListComponent implements OnInit {
   private blogService = inject(BlogService);
+  private toaster = inject(ToasterService);
 
   blogs: Blog[] = [];
   loading = true;
   error = '';
+  confirmDeleteId: string | null = null;
 
   ngOnInit() {
     this.loadBlogs();
@@ -29,28 +32,24 @@ export class AdminBlogListComponent implements OnInit {
     });
   }
 
-  async delete(id: string) {
-    const result = await Swal.fire({
-      title: 'Delete Post?',
-      text: 'This action cannot be undone.',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonText: 'Yes, delete it',
-      cancelButtonText: 'Cancel',
-      background: '#1e293b',
-      color: '#f8fafc',
-      confirmButtonColor: '#ef4444',
-      cancelButtonColor: '#334155',
-    });
-    if (!result.isConfirmed) return;
+  confirmDelete(id: string) {
+    this.confirmDeleteId = id;
+  }
+
+  cancelDelete() {
+    this.confirmDeleteId = null;
+  }
+
+  delete() {
+    if (!this.confirmDeleteId) return;
+    const id = this.confirmDeleteId;
+    this.confirmDeleteId = null;
     this.blogService.delete(id).subscribe({
-      next: (res) => {
-        if (res.success) {
-          this.blogs = this.blogs.filter(b => b._id !== id);
-          Swal.fire({ title: 'Deleted!', icon: 'success', background: '#1e293b', color: '#f8fafc', confirmButtonColor: '#6366f1', timer: 1500, showConfirmButton: false });
-        }
+      next: () => {
+        this.blogs = this.blogs.filter(b => b._id !== id);
+        this.toaster.success(APP_MESSAGES.SUCCESS.BLOG_DELETED);
       },
-      error: () => Swal.fire({ title: 'Error', text: 'Failed to delete blog.', icon: 'error', background: '#1e293b', color: '#f8fafc', confirmButtonColor: '#6366f1' })
+      error: () => this.toaster.error(APP_MESSAGES.ERROR.BLOG_DELETE_FAILED)
     });
   }
 }

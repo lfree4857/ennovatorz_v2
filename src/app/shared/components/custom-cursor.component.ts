@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit, Renderer2 } from '@angular/core';
+import { Component, HostListener, OnInit, Renderer2, ChangeDetectorRef } from '@angular/core';
 import { NgStyle } from '@angular/common';
 
 @Component({
@@ -47,7 +47,7 @@ export class CustomCursorComponent implements OnInit {
   outlineX = 0;
   outlineY = 0;
 
-  constructor(private renderer: Renderer2) {}
+  constructor(private renderer: Renderer2, private cdr: ChangeDetectorRef) {}
 
   ngOnInit() {}
 
@@ -55,11 +55,11 @@ export class CustomCursorComponent implements OnInit {
   onMouseMove(event: MouseEvent) {
     this.dotX = event.clientX;
     this.dotY = event.clientY;
-    
-    // Smooth follow for outline
+
     setTimeout(() => {
-        this.outlineX = event.clientX;
-        this.outlineY = event.clientY;
+      this.outlineX = event.clientX;
+      this.outlineY = event.clientY;
+      this.cdr.detectChanges();
     }, 50);
   }
 }

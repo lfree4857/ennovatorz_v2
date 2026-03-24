@@ -2,6 +2,8 @@ import { Component, OnInit, inject } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { BlogService } from '../../../services/blog.service';
+import { ToasterService } from '../../../services/toaster.service';
+import { APP_MESSAGES } from '../../../shared/constants/messages.constant';
 import { environment } from '../../../../environments/environment';
 
 @Component({
@@ -16,6 +18,7 @@ export class AdminBlogFormComponent implements OnInit {
   private blogService = inject(BlogService);
   private route = inject(ActivatedRoute);
   private router = inject(Router);
+  private toaster = inject(ToasterService);
 
   editId: string | null = null;
   isEditMode = false;
@@ -44,9 +47,11 @@ export class AdminBlogFormComponent implements OnInit {
         next: (blog) => {
           this.form.patchValue(blog as any);
           if (blog.imageUrl) {
-            this.imagePreview = blog.imageUrl.startsWith('http')
-              ? blog.imageUrl
-              : `${environment.apiUrl}${blog.imageUrl}`;
+            let url = blog.imageUrl;
+            if (url.startsWith('http')) {
+              try { url = new URL(url).pathname; } catch {}
+            }
+            this.imagePreview = `${environment.uploadsUrl}${url}`;
           }
         },
         error: () => this.error = 'Failed to load blog data.'
@@ -84,7 +89,10 @@ export class AdminBlogFormComponent implements OnInit {
       : this.blogService.create(formData);
 
     request$.subscribe({
-      next: (res) => { if (res.success) this.router.navigate(['/admin/blog']); },
+      next: () => {
+        this.toaster.success(this.isEditMode ? APP_MESSAGES.SUCCESS.BLOG_UPDATED : APP_MESSAGES.SUCCESS.BLOG_CREATED);
+        this.router.navigate(['/admin/blog']);
+      },
       error: () => { this.error = 'Failed to save blog. Please try again.'; this.submitting = false; }
     });
   }

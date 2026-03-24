@@ -30,8 +30,10 @@ export class BlogService {
 
   resolveImageUrl(imageUrl?: string): string | undefined {
     if (!imageUrl) return undefined;
-    if (imageUrl.startsWith('http')) return imageUrl;
-    return `${environment.apiUrl}${imageUrl}`;
+    if (imageUrl.startsWith('http')) {
+      try { imageUrl = new URL(imageUrl).pathname; } catch { return imageUrl; }
+    }
+    return `${environment.uploadsUrl}${imageUrl}`;
   }
 
   getAll(): Observable<Blog[]> {
@@ -42,15 +44,15 @@ export class BlogService {
     return this.http.get<Blog>(`blog/${id}`);
   }
 
-  create(formData: FormData): Observable<ApiResponse<Blog>> {
-    return this.http.post<ApiResponse<Blog>>('blog', formData);
+  create(formData: FormData): Observable<Blog> {
+    return this.http.post<Blog>('blog', formData);
   }
 
-  update(id: string, formData: FormData): Observable<ApiResponse<Blog>> {
-    return this.http.patch<ApiResponse<Blog>>(`blog/${id}`, formData);
+  update(id: string, formData: FormData): Observable<Blog> {
+    return this.http.patch<Blog>(`blog/${id}`, formData);
   }
 
-  delete(id: string): Observable<ApiResponse<void>> {
-    return this.http.delete<ApiResponse<void>>(`blog/${id}`);
+  delete(id: string): Observable<ApiResponse<Blog>> {
+    return this.http.delete<ApiResponse<Blog>>(`blog/${id}`);
   }
 }

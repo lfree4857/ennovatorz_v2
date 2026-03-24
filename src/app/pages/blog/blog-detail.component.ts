@@ -19,7 +19,10 @@ export class BlogDetailComponent implements OnInit {
 
   getImageUrl(imageUrl?: string): string {
     if (!imageUrl) return '';
-    return imageUrl.startsWith('http') ? imageUrl : `${environment.apiUrl}${imageUrl}`;
+    if (imageUrl.startsWith('http')) {
+      try { imageUrl = new URL(imageUrl).pathname; } catch { return imageUrl; }
+    }
+    return `${environment.uploadsUrl}${imageUrl}`;
   }
 
   ngOnInit() {
