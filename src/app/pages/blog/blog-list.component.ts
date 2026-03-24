@@ -2,6 +2,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { BlogService, Blog } from '../../services/blog.service';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-blog-list',
@@ -29,6 +30,14 @@ export class BlogListComponent implements OnInit {
       },
       error: () => { this.loading = false; }
     });
+  }
+
+  getImageUrl(imageUrl?: string): string {
+    if (!imageUrl) return '';
+    if (imageUrl.startsWith('http')) {
+      try { imageUrl = new URL(imageUrl).pathname; } catch { return imageUrl; }
+    }
+    return `${environment.uploadsUrl}${imageUrl}`;
   }
 
   get filteredPosts() {
