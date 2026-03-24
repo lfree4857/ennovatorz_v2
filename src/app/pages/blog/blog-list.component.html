@@ -74,7 +74,7 @@
           <!-- Cover Gradient -->
           <div class="h-48 bg-gradient-to-br from-primary-600 to-indigo-600 relative overflow-hidden">
             @if (post.imageUrl) {
-              <img [src]="getImageUrl(post.imageUrl)" alt="{{ post.title }}" class="w-full h-full object-cover" />
+              <img [src]="getImageUrl(post.imageUrl)" alt="{{ post.title }}" crossorigin="anonymous" class="w-full h-full object-cover" />
             }
             <div class="absolute inset-0 bg-dark-950/10 group-hover:bg-transparent transition-colors duration-500 mix-blend-overlay"></div>
           </div>

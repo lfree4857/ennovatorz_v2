@@ -39,7 +39,7 @@
       <!-- Feature Image -->
       @if (post.imageUrl) {
         <div class="w-full h-64 md:h-96 rounded-2xl mb-16 overflow-hidden shadow-2xl">
-          <img [src]="getImageUrl(post.imageUrl)" alt="Cover" class="w-full h-full object-cover" />
+          <img [src]="getImageUrl(post.imageUrl)" alt="Cover" crossorigin="anonymous" class="w-full h-full object-cover" />
         </div>
       }
 

@@ -106,7 +106,7 @@
           <div class="border-2 border-dashed border-dark-700 rounded-xl p-6 text-center hover:border-primary-500/50 transition-all cursor-pointer"
             (click)="fileInput.click()">
             @if (imagePreview) {
-              <img [src]="imagePreview" alt="Preview" class="max-h-48 mx-auto rounded-lg object-cover mb-3" />
+              <img [src]="imagePreview" alt="Preview" crossorigin="anonymous" class="max-h-48 mx-auto rounded-lg object-cover mb-3" />
               <p class="text-xs text-dark-500">Click to change image</p>
             } @else {
               <svg class="w-10 h-10 text-dark-600 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
