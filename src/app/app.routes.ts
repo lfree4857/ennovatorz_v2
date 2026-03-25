@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { adminAuthGuard } from './pages/admin/admin-auth.guard';
 
 export const routes: Routes = [
   {
@@ -47,20 +48,30 @@ export const routes: Routes = [
   },
   {
     path: 'admin',
-    loadComponent: () => import('./pages/admin/layout/admin-layout.component').then(m => m.AdminLayoutComponent),
     children: [
-      { path: '', redirectTo: 'blog', pathMatch: 'full' },
       {
-        path: 'blog',
-        loadComponent: () => import('./pages/admin/blog-list/admin-blog-list.component').then(m => m.AdminBlogListComponent),
+        path: 'login',
+        loadComponent: () => import('./pages/admin/login/admin-login.component').then(m => m.AdminLoginComponent),
       },
       {
-        path: 'blog/create',
-        loadComponent: () => import('./pages/admin/blog-form/admin-blog-form.component').then(m => m.AdminBlogFormComponent),
-      },
-      {
-        path: 'blog/edit/:id',
-        loadComponent: () => import('./pages/admin/blog-form/admin-blog-form.component').then(m => m.AdminBlogFormComponent),
+        path: '',
+        loadComponent: () => import('./pages/admin/layout/admin-layout.component').then(m => m.AdminLayoutComponent),
+        canActivate: [adminAuthGuard],
+        children: [
+          { path: '', redirectTo: 'blog', pathMatch: 'full' },
+          {
+            path: 'blog',
+            loadComponent: () => import('./pages/admin/blog-list/admin-blog-list.component').then(m => m.AdminBlogListComponent),
+          },
+          {
+            path: 'blog/create',
+            loadComponent: () => import('./pages/admin/blog-form/admin-blog-form.component').then(m => m.AdminBlogFormComponent),
+          },
+          {
+            path: 'blog/edit/:id',
+            loadComponent: () => import('./pages/admin/blog-form/admin-blog-form.component').then(m => m.AdminBlogFormComponent),
+          },
+        ]
       },
     ]
   },
