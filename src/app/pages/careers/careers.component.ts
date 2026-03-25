@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { CONTACT_INFO } from '../../shared/constants/contact-info.constant';
 
 @Component({
   selector: 'app-careers',
@@ -7,6 +8,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./careers.component.scss']
 })
 export class CareersComponent {
+  readonly contactInfo = CONTACT_INFO;
   roles = [
     {
       title: 'Senior Frontend Engineer',

@@ -5,6 +5,7 @@ import { HttpService } from '../../services/http.service';
 import { LoaderService } from '../../services/loader.service';
 import { ToasterService } from '../../services/toaster.service';
 import { SocialLinksComponent } from "../../shared/components/social-links/social-links.component";
+import { CONTACT_INFO } from '../../shared/constants/contact-info.constant';
 
 @Component({
   selector: 'app-contact',
@@ -14,6 +15,7 @@ import { SocialLinksComponent } from "../../shared/components/social-links/socia
   styleUrls: ['./contact.component.scss']
 })
 export class ContactComponent {
+  readonly contactInfo = CONTACT_INFO;
   contactForm: FormGroup;
   isSubmitted = false;
   isSubmitting = false;

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { NgClass } from '@angular/common';
+import { CONTACT_INFO } from '../../shared/constants/contact-info.constant';
 
 @Component({
   selector: 'app-pricing',
@@ -10,6 +11,7 @@ import { NgClass } from '@angular/common';
   styleUrls: ['./pricing.component.scss']
 })
 export class PricingComponent {
+  readonly contactInfo = CONTACT_INFO;
   pricingTiers = [
     {
       name: 'Starter',

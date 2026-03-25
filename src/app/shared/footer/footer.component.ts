@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { SocialLinksComponent } from '../components/social-links/social-links.component';
+import { CONTACT_INFO } from '../constants/contact-info.constant';
 
 @Component({
   selector: 'app-footer',
@@ -10,6 +11,7 @@ import { SocialLinksComponent } from '../components/social-links/social-links.co
   styleUrls: ['./footer.component.scss']
 })
 export class FooterComponent {
+  readonly contactInfo = CONTACT_INFO;
   currentYear = new Date().getFullYear();
 
   footerLinks = {

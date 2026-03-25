@@ -55,7 +55,7 @@
                   </span>
                 </div>
               </div>
-              <a href="mailto:jobs@innovators.dev?subject=Application for {{role.title}}" class="btn-primary text-sm px-6 py-2.5 whitespace-nowrap md:self-start">
+              <a [href]="contactInfo.jobsEmailHref + '?subject=Application for ' + role.title" class="btn-primary text-sm px-6 py-2.5 whitespace-nowrap md:self-start">
                 Apply Now
               </a>
             </div>
@@ -63,6 +63,24 @@
           </div>
         }
       </div>
+    </div>
+  </div>
+
+  <!-- Contact Strip -->
+  <div class="max-w-4xl mx-auto glass-card p-8 flex flex-col sm:flex-row items-center justify-between gap-6 glow-border" data-aos="fade-up">
+    <div>
+      <h3 class="text-lg font-bold text-white mb-1">Don't see a role that fits?</h3>
+      <p class="text-dark-400 text-sm">Send us your CV anyway — we're always looking for exceptional talent.</p>
+    </div>
+    <div class="flex flex-col sm:flex-row items-center gap-4 flex-shrink-0">
+      <a [href]="contactInfo.jobsEmailHref" class="flex items-center gap-2 text-sm text-dark-300 hover:text-primary-400 transition-colors">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+        {{ contactInfo.jobsEmail }}
+      </a>
+      <a [href]="contactInfo.phoneHref" class="flex items-center gap-2 text-sm text-dark-300 hover:text-primary-400 transition-colors">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+        {{ contactInfo.phone }}
+      </a>
     </div>
   </div>
 </section>

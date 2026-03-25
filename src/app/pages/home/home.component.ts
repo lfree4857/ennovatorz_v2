@@ -7,6 +7,7 @@ import { SpotlightDirective } from '../../shared/directives/spotlight.directive'
 import { TestimonialsComponent } from '../testimonials/testimonials.component';
 import { SERVICES } from '../../shared/constants/services.constant';
 import { PROJECTS } from '../../shared/constants/projects.constant';
+import { CONTACT_INFO } from '../../shared/constants/contact-info.constant';
 
 @Component({
   selector: 'app-home',
@@ -16,6 +17,7 @@ import { PROJECTS } from '../../shared/constants/projects.constant';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent {
+  readonly contactInfo = CONTACT_INFO;
   services = SERVICES;
   caseStudies = PROJECTS;
 
