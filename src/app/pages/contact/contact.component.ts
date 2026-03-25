@@ -4,11 +4,12 @@ import { APP_MESSAGES } from '../../shared/constants/messages.constant';
 import { HttpService } from '../../services/http.service';
 import { LoaderService } from '../../services/loader.service';
 import { ToasterService } from '../../services/toaster.service';
+import { SocialLinksComponent } from "../../shared/components/social-links/social-links.component";
 
 @Component({
   selector: 'app-contact',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, SocialLinksComponent],
   templateUrl: './contact.component.html',
   styleUrls: ['./contact.component.scss']
 })

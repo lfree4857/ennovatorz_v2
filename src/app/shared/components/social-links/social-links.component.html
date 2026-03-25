@@ -1,0 +1,15 @@
+<div class="flex items-center gap-3">
+  @for (link of links; track link.label) {
+    <a
+      [href]="getHref(link)"
+      [attr.aria-label]="shareMode ? 'Share on ' + link.label : link.label"
+      target="_blank"
+      rel="noopener noreferrer"
+      [ngClass]="[btnSize, 'rounded-lg bg-dark-800 border border-dark-700/50 flex items-center justify-center text-dark-400 hover:text-primary-400 hover:bg-primary-500/20 hover:border-primary-500/50 transition-all duration-300']"
+    >
+      <svg [ngClass]="iconSize" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path [attr.d]="link.icon" />
+      </svg>
+    </a>
+  }
+</div>

@@ -58,6 +58,11 @@
           <a routerLink="/contact" class="btn-primary text-base px-8 py-3.5 w-full sm:w-auto">Start a Conversation</a>
           <button class="btn-secondary text-base px-8 py-3.5 w-full sm:w-auto">Subscribe</button>
         </div>
+        <!-- Share on Social -->
+        <div class="mt-8 pt-8 border-t border-dark-700/30 relative z-10">
+          <p class="text-sm text-dark-400 mb-4">Share this article</p>
+          <app-social-links [shareMode]="true" [shareTitle]="post.title" size="sm" />
+        </div>
       </div>
     } @else {
       <!-- Not Found State -->
