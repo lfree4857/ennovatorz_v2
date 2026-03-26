@@ -39,6 +39,11 @@ import { NgStyle } from '@angular/common';
         background-color: rgba(99, 102, 241, 0.1);
         border-color: transparent;
     }
+    @media (prefers-reduced-motion: reduce) {
+      .cursor-dot, .cursor-outline {
+        display: none;
+      }
+    }
   `]
 })
 export class CustomCursorComponent implements OnInit {

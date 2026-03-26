@@ -27,7 +27,7 @@
       </div>
 
       <!-- Company Links -->
-      <div>
+      <nav aria-label="Company Links">
         <h4 class="text-dark-50 font-semibold mb-4 text-sm uppercase tracking-wider">Company</h4>
         <ul class="flex flex-col gap-3">
           @for (link of footerLinks.company; track link.label) {
@@ -37,10 +37,10 @@
           </li>
           }
         </ul>
-      </div>
+      </nav>
 
       <!-- Services Links -->
-      <div>
+      <nav aria-label="Services Links">
         <h4 class="text-dark-50 font-semibold mb-4 text-sm uppercase tracking-wider">Services</h4>
         <ul class="flex flex-col gap-3">
           @for (link of footerLinks.services; track link.label) {
@@ -50,10 +50,10 @@
           </li>
           }
         </ul>
-      </div>
+      </nav>
 
       <!-- Resources Links -->
-      <div>
+      <nav aria-label="Resources Links">
         <h4 class="text-dark-50 font-semibold mb-4 text-sm uppercase tracking-wider">Resources</h4>
         <ul class="flex flex-col gap-3">
           @for (link of footerLinks.resources; track link.label) {
@@ -63,7 +63,7 @@
           </li>
           }
         </ul>
-      </div>
+      </nav>
     </div>
 
     <!-- Newsletter -->

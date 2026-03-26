@@ -32,11 +32,10 @@ body {
   color: #0f172a; /* dark-50 (Dark Text) */
   line-height: 1.6;
   overflow-x: hidden;
-  cursor: none; /* Hide default cursor */
 }
 
 a, button, [role="button"] {
-  cursor: none !important;
+  /* cursor: none !important; */
 }
 
 /* ===== Scrollbar ===== */
