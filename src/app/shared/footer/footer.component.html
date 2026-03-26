@@ -4,8 +4,8 @@
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 mb-16">
       <!-- Brand -->
       <div class="lg:col-span-2">
-        <a routerLink="/" class="flex items-center gap-2 mb-4">
-          <img src="logo/innovators.webp" alt="Innovators Logo" class="h-16 w-auto object-contain" />
+        <a routerLink="/" class="flex items-center gap-2 mb-4" aria-label="Ennovatorz Home">
+          <img src="logo/innovators.webp" alt="Ennovatorz Logo" class="h-16 w-auto object-contain" width="240" height="64" />
         </a>
         <p class="text-dark-400 text-sm leading-relaxed max-w-sm mb-4">
           A team of experienced developers building scalable, high-performance software solutions for startups and
@@ -82,10 +82,10 @@
 
     <!-- Bottom Bar -->
     <div class="flex flex-col md:flex-row items-center justify-between pt-8 border-t border-dark-700/30 gap-4">
-      <p class="text-dark-500 text-sm">© {{ currentYear }} Innovators. All rights reserved.</p>
+      <p class="text-dark-500 text-sm">© {{ currentYear }} Ennovatorz. All rights reserved.</p>
       <div class="flex items-center gap-6">
-        <a href="#" class="text-dark-500 hover:text-dark-300 text-sm transition-colors">Privacy Policy</a>
-        <a href="#" class="text-dark-500 hover:text-dark-300 text-sm transition-colors">Terms of Service</a>
+        <a routerLink="/privacy-policy" class="text-dark-500 hover:text-dark-300 text-sm transition-colors">Privacy Policy</a>
+        <a routerLink="/terms-of-service" class="text-dark-500 hover:text-dark-300 text-sm transition-colors">Terms of Service</a>
       </div>
     </div>
   </div>

@@ -9,7 +9,7 @@ export interface Testimonial {
 
 export const TESTIMONIALS: Testimonial[] = [
   {
-    quote: 'Innovators transformed our idea into a production-ready SaaS product in just 4 months. Their technical expertise is unmatched, and their communication was stellar throughout the process.',
+    quote: 'Ennovatorz transformed our idea into a production-ready SaaS product in just 4 months. Their technical expertise is unmatched, and their communication was stellar throughout the process.',
     author: 'Sarah Chen',
     role: 'CEO, FinTrack Pro',
     company: 'FinTrack Inc.',
@@ -17,7 +17,7 @@ export const TESTIMONIALS: Testimonial[] = [
     avatar: 'images/testimonials/default-avatar.webp'
   },
   {
-    quote: 'Working with Innovators felt like having a CTO on demand. They architected our entire platform from scratch and it scaled beautifully from 1,000 to 150,000 users without a hitch.',
+    quote: 'Working with Ennovatorz felt like having a CTO on demand. They architected our entire platform from scratch and it scaled beautifully from 1,000 to 150,000 users without a hitch.',
     author: 'James Murphy',
     role: 'Founder, HealthBridge',
     company: 'HealthBridge LLC',
@@ -33,7 +33,7 @@ export const TESTIMONIALS: Testimonial[] = [
     avatar: 'images/testimonials/default-avatar.webp'
   },
   {
-    quote: 'We had performance bottlenecks that stalled our growth. Innovators swooped in, audited our infrastructure, and reduced load times by 70%. Literal lifesavers.',
+    quote: 'We had performance bottlenecks that stalled our growth. Ennovatorz swooped in, audited our infrastructure, and reduced load times by 70%. Literal lifesavers.',
     author: 'Alex Rivera',
     role: 'CTO, DataSync',
     company: 'DataSync Cloud',
@@ -41,7 +41,7 @@ export const TESTIMONIALS: Testimonial[] = [
     avatar: 'images/testimonials/default-avatar.webp'
   },
   {
-    quote: 'The difference between our old vendor and Innovators is night and day. The code quality, the automated testing, and the deployment pipelines are perfectly engineered.',
+    quote: 'The difference between our old vendor and Ennovatorz is night and day. The code quality, the automated testing, and the deployment pipelines are perfectly engineered.',
     author: 'Michael O\'Connor',
     role: 'Product Director',
     company: 'RetailNow',

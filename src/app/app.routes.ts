@@ -5,12 +5,12 @@ export const routes: Routes = [
   {
     path: '',
     loadComponent: () => import('./pages/home/home.component').then(m => m.HomeComponent),
-    data: { title: 'Innovators — Bespoke Software Development', description: 'Transforming ideas into scalable digital products. Innovators is a premier software agency specializing in web and mobile applications.' }
+    data: { title: 'Ennovatorz — Bespoke Software Development', description: 'Transforming ideas into scalable digital products. Ennovatorz is a premier software agency specializing in web and mobile applications.' }
   },
   {
     path: 'about',
     loadComponent: () => import('./pages/about/about.component').then(m => m.AboutComponent),
-    data: { title: 'About Innovators | Our Team & Vision', description: 'Learn about Innovators, our world-class engineering team, and our commitment to delivering exceptional software solutions.' }
+    data: { title: 'About Ennovatorz | Our Team & Vision', description: 'Learn about Ennovatorz, our world-class engineering team, and our commitment to delivering exceptional software solutions.' }
   },
   {
     path: 'services',
@@ -25,7 +25,7 @@ export const routes: Routes = [
   {
     path: 'blog',
     loadComponent: () => import('./pages/blog/blog-list.component').then(m => m.BlogListComponent),
-    data: { title: 'Tech Blog & Insights | Innovators', description: 'Read our latest articles on software engineering, best practices, modern frameworks, and tech industry trends.' }
+    data: { title: 'Tech Blog & Insights | Ennovatorz', description: 'Read our latest articles on software engineering, best practices, modern frameworks, and tech industry trends.' }
   },
   {
     path: 'blog/:slug',
@@ -39,22 +39,22 @@ export const routes: Routes = [
   {
     path: 'testimonials',
     loadComponent: () => import('./pages/testimonials/testimonials.component').then(m => m.TestimonialsComponent),
-    data: { title: 'Client Testimonials | What People Say About Us', description: 'Read reviews and testimonials from clients who have partnered with Innovators to build their digital products.' }
+    data: { title: 'Client Testimonials | What People Say About Us', description: 'Read reviews and testimonials from clients who have partnered with Ennovatorz to build their digital products.' }
   },
   {
     path: 'contact',
     loadComponent: () => import('./pages/contact/contact.component').then(m => m.ContactComponent),
-    data: { title: 'Contact Innovators | Start Your Project', description: 'Get in touch with our team of experts. Let us discuss how we can help you build your next great software product.' }
+    data: { title: 'Contact Ennovatorz | Start Your Project', description: 'Get in touch with our team of experts. Let us discuss how we can help you build your next great software product.' }
   },
   {
     path: 'pricing',
     loadComponent: () => import('./pages/pricing/pricing.component').then(m => m.PricingComponent),
-    data: { title: 'Pricing & Engagement Models | Innovators', description: 'Transparent pricing and flexible engagement models tailored to startups, scale-ups, and large enterprise requirements.' }
+    data: { title: 'Pricing & Engagement Models | Ennovatorz', description: 'Transparent pricing and flexible engagement models tailored to startups, scale-ups, and large enterprise requirements.' }
   },
   {
     path: 'careers',
     loadComponent: () => import('./pages/careers/careers.component').then(m => m.CareersComponent),
-    data: { title: 'Careers | Join The Innovators Team', description: 'We are hiring! Explore open positions and join a team of passionate software engineers building the future of tech.' }
+    data: { title: 'Careers | Join The Ennovatorz Team', description: 'We are hiring! Explore open positions and join a team of passionate software engineers building the future of tech.' }
   },
   {
     path: 'admin',
@@ -62,7 +62,7 @@ export const routes: Routes = [
       {
         path: 'login',
         loadComponent: () => import('./pages/admin/login/admin-login.component').then(m => m.AdminLoginComponent),
-        data: { title: 'Admin Login | Innovators' }
+        data: { title: 'Admin Login | Ennovatorz' }
       },
       {
         path: '',

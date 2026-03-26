@@ -17,7 +17,7 @@ import AOS from 'aos';
   styleUrl: './app.scss'
 })
 export class App implements OnInit {
-  protected readonly title = signal('Innovators');
+  protected readonly title = signal('Ennovatorz');
   private router = inject(Router);
   private seoService = inject(SeoService);
   isAdminRoute = false;

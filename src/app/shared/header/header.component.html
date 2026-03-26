@@ -2,8 +2,8 @@
   [class.backdrop-blur-xl]="isScrolled()" [class.border-b]="isScrolled()" [class.border-dark-700/50]="isScrolled()">
   <nav class="max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
     <!-- Logo -->
-    <a routerLink="/" class="flex items-center gap-2 group" (click)="closeMobileMenu()">
-      <img src="logo/innovators.webp" alt="Innovators Logo" class="h-12 md:h-14 w-auto object-contain" />
+    <a routerLink="/" class="flex items-center gap-2 group" (click)="closeMobileMenu()" aria-label="Ennovatorz Home">
+      <img src="logo/innovators.webp" alt="Ennovatorz Logo" class="h-12 md:h-14 w-auto object-contain" fetchpriority="high" width="200" height="56" />
     </a>
 
     <!-- Desktop Nav -->

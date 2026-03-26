@@ -25,7 +25,7 @@ export class SeoService {
       filter(route => route.outlet === 'primary'),
       mergeMap(route => route.data)
     ).subscribe(data => {
-      const title = data['title'] || 'Innovators — Elite Software Development Agency';
+      const title = data['title'] || 'Ennovatorz — Elite Software Development Agency';
       const description = data['description'] || 'Elite software development agency building scalable solutions for startups and enterprises.';
       const keywords = data['keywords'] || 'software development, web development, SaaS, API, mobile apps';
 
