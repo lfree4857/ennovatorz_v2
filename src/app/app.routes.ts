@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { adminAuthGuard } from './pages/admin/admin-auth.guard';
+
 
 export const routes: Routes = [
   {
@@ -51,43 +51,14 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/pricing/pricing.component').then(m => m.PricingComponent),
     data: { title: 'Pricing & Engagement Models | Ennovatorz', description: 'Transparent pricing and flexible engagement models tailored to startups, scale-ups, and large enterprise requirements.' }
   },
-  {
-    path: 'careers',
-    loadComponent: () => import('./pages/careers/careers.component').then(m => m.CareersComponent),
-    data: { title: 'Careers | Join The Ennovatorz Team', description: 'We are hiring! Explore open positions and join a team of passionate software engineers building the future of tech.' }
-  },
+  // {
+  //   path: 'careers',
+  //   loadComponent: () => import('./pages/careers/careers.component').then(m => m.CareersComponent),
+  //   data: { title: 'Careers | Join The Ennovatorz Team', description: 'We are hiring! Explore open positions and join a team of passionate software engineers building the future of tech.' }
+  // },
   {
     path: 'admin',
-    children: [
-      {
-        path: 'login',
-        loadComponent: () => import('./pages/admin/login/admin-login.component').then(m => m.AdminLoginComponent),
-        data: { title: 'Admin Login | Ennovatorz' }
-      },
-      {
-        path: '',
-        loadComponent: () => import('./pages/admin/layout/admin-layout.component').then(m => m.AdminLayoutComponent),
-        canActivate: [adminAuthGuard],
-        children: [
-          { path: '', redirectTo: 'blog', pathMatch: 'full' },
-          {
-            path: 'blog',
-            loadComponent: () => import('./pages/admin/blog-list/admin-blog-list.component').then(m => m.AdminBlogListComponent),
-            data: { title: 'Admin - Manage Blogs' }
-          },
-          {
-            path: 'blog/create',
-            loadComponent: () => import('./pages/admin/blog-form/admin-blog-form.component').then(m => m.AdminBlogFormComponent),
-            data: { title: 'Admin - Create Blog' }
-          },
-          {
-            path: 'blog/edit/:id',
-            loadComponent: () => import('./pages/admin/blog-form/admin-blog-form.component').then(m => m.AdminBlogFormComponent),
-            data: { title: 'Admin - Edit Blog' }
-          },
-        ]
-      },
-    ]
+    loadChildren: () => import('./pages/admin/admin.routes').then(m => m.adminRoutes)
   },
   {
     path: '**',

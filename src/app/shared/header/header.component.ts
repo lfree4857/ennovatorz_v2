@@ -20,7 +20,7 @@ export class HeaderComponent {
     { label: 'Technologies', path: '/technologies' },
     { label: 'Blog', path: '/blog' },
     { label: 'Pricing', path: '/pricing' },
-    { label: 'Careers', path: '/careers' },
+    // { label: 'Careers', path: '/careers' },
     { label: 'Contact', path: '/contact' },
   ];
 
