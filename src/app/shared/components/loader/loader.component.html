@@ -1,8 +1,8 @@
 @if (loaderService.isLoading()) {
   <div class="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-dark-950/95 backdrop-blur-md loader-overlay"
-       role="status" aria-live="polite">
+       role="status">
+    <span class="sr-only">Loading, please wait...</span>
     <div class="relative flex flex-col items-center justify-center p-12">
-      <span class="sr-only">Loading, please wait...</span>
       <!-- Outer glowing rings -->
       <div class="absolute inset-0 rounded-full border-t-4 border-primary-500/80 spin-fast w-48 h-48 -m-6 md:-m-2 mx-auto pointer-events-none"></div>
       <div class="absolute inset-0 rounded-full border-b-4 border-cyan-400/80 spin-slow w-48 h-48 -m-6 md:-m-2 mx-auto pointer-events-none"></div>
