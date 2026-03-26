@@ -5,6 +5,7 @@ import { FooterComponent } from './shared/footer/footer.component';
 import { CustomCursorComponent } from './shared/components/custom-cursor.component';
 import { LoaderComponent } from './shared/components/loader/loader.component';
 import { ToasterComponent } from './shared/components/toaster/toaster.component';
+import { SeoService } from './core/services/seo.service';
 import { filter } from 'rxjs/operators';
 import AOS from 'aos';
 
@@ -18,9 +19,11 @@ import AOS from 'aos';
 export class App implements OnInit {
   protected readonly title = signal('Innovators');
   private router = inject(Router);
+  private seoService = inject(SeoService);
   isAdminRoute = false;
 
   ngOnInit() {
+    this.seoService.init();
     AOS.init({ duration: 800, easing: 'ease-out-cubic', once: true, offset: 50 });
     this.router.events.pipe(filter(e => e instanceof NavigationEnd)).subscribe((e: any) => {
       this.isAdminRoute = e.urlAfterRedirects.startsWith('/admin');

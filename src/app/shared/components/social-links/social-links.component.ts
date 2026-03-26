@@ -29,7 +29,8 @@ export class SocialLinksComponent {
 
   getHref(link: SocialLink): string {
     if (!this.shareMode || !link.shareKey) return link.url;
-    const url = encodeURIComponent(window.location.href);
+    const currentUrl = typeof window !== 'undefined' ? window.location.href : 'https://dev.ennovatorz.com';
+    const url = encodeURIComponent(currentUrl);
     const title = encodeURIComponent(this.shareTitle);
     const map: Record<string, string> = {
       x: `https://x.com/intent/tweet?url=${url}&text=${title}`,
