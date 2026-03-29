@@ -13,7 +13,7 @@ import { AdminAuthService } from '../admin-auth.service';
       <header class="bg-dark-900 border-b border-dark-700/50 px-6 py-0 flex items-center justify-between h-16 flex-shrink-0">
         <!-- Brand -->
         <div class="flex items-center gap-8">
-          <a routerLink="/admin/blog" class="text-lg font-bold text-white tracking-tight">
+          <a routerLink="/admin/blog" class="text-lg font-bold tracking-tight" style="color:#0f172a">
             Ennovatorz <span class="text-primary-400 font-medium">Admin</span>
           </a>
           <!-- Nav Links -->

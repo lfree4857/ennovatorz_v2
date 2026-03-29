@@ -8,6 +8,7 @@ import { TestimonialsComponent } from '../testimonials/testimonials.component';
 import { SERVICES } from '../../shared/constants/services.constant';
 import { PROJECTS } from '../../shared/constants/projects.constant';
 import { CONTACT_INFO } from '../../shared/constants/contact-info.constant';
+import { TECH_CATEGORIES } from '../../shared/constants/tech-stack.constant';
 
 @Component({
   selector: 'app-home',
@@ -38,32 +39,7 @@ export class HomeComponent {
     { step: '06', title: 'Launch', description: 'Deploying to production with monitoring, support, and iteration cycles.' },
   ];
 
-  techStack = {
-    frontend: [
-      { name: 'React', color: '#61DAFB' },
-      { name: 'Next.js', color: '#ffffff' },
-      { name: 'Angular', color: '#DD0031' },
-      { name: 'TypeScript', color: '#3178C6' },
-      { name: 'Tailwind CSS', color: '#06B6D4' },
-    ],
-    backend: [
-      { name: 'Node.js', color: '#339933' },
-      { name: 'Spring Boot', color: '#6DB33F' },
-      { name: 'Express', color: '#ffffff' },
-      { name: 'NestJS', color: '#E0234E' },
-    ],
-    databases: [
-      { name: 'PostgreSQL', color: '#4169E1' },
-      { name: 'MongoDB', color: '#47A248' },
-      { name: 'Redis', color: '#DC382D' },
-    ],
-    devops: [
-      { name: 'Docker', color: '#2496ED' },
-      { name: 'AWS', color: '#FF9900' },
-      { name: 'CI/CD', color: '#40BE46' },
-      { name: 'Kubernetes', color: '#326CE5' },
-    ],
-  };
+  techStack = TECH_CATEGORIES;
 
   clientLogos = ['TechCorp', 'StartupX', 'DataFlow', 'CloudBase', 'InnoVentures', 'ScaleUp'];
 }

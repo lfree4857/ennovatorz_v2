@@ -46,11 +46,11 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/contact/contact.component').then(m => m.ContactComponent),
     data: { title: 'Contact Ennovatorz | Start Your Project', description: 'Get in touch with our team of experts. Let us discuss how we can help you build your next great software product.' }
   },
-  {
-    path: 'pricing',
-    loadComponent: () => import('./pages/pricing/pricing.component').then(m => m.PricingComponent),
-    data: { title: 'Pricing & Engagement Models | Ennovatorz', description: 'Transparent pricing and flexible engagement models tailored to startups, scale-ups, and large enterprise requirements.' }
-  },
+  // {
+  //   path: 'pricing',
+  //   loadComponent: () => import('./pages/pricing/pricing.component').then(m => m.PricingComponent),
+  //   data: { title: 'Pricing & Engagement Models | Ennovatorz', description: 'Transparent pricing and flexible engagement models tailored to startups, scale-ups, and large enterprise requirements.' }
+  // },
   // {
   //   path: 'careers',
   //   loadComponent: () => import('./pages/careers/careers.component').then(m => m.CareersComponent),

@@ -33,7 +33,9 @@
           </div>
           <div>
             <p class="text-dark-50 font-semibold">{{ review.author }}</p>
-            <p class="text-dark-400 text-sm">{{ review.role }}</p>
+            @if (review.role) {
+              <p class="text-dark-400 text-sm">{{ review.role }}</p>
+            }
             <p class="text-primary-400 text-xs font-medium uppercase tracking-wide mt-1">{{ review.company }}</p>
           </div>
         </div>
@@ -71,7 +73,9 @@
           </div>
           <div>
             <p class="text-dark-50 font-semibold">{{ review.author }}</p>
-            <p class="text-dark-400 text-sm">{{ review.role }}</p>
+            @if (review.role) {
+              <p class="text-dark-400 text-sm">{{ review.role }}</p>
+            }
             <p class="text-primary-400 text-xs font-medium uppercase tracking-wide mt-1">{{ review.company }}</p>
           </div>
         </div>

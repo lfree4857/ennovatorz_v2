@@ -30,7 +30,7 @@ export class FooterComponent {
     resources: [
       { label: 'Portfolio', path: '/portfolio' },
       { label: 'Technologies', path: '/technologies' },
-      { label: 'Pricing', path: '/pricing' },
+      // { label: 'Pricing', path: '/pricing' },
       { label: 'Testimonials', path: '/testimonials' },
     ],
   };
