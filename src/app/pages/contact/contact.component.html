@@ -138,10 +138,10 @@
                 class="w-full px-4 py-3 bg-dark-900 border border-dark-700 rounded-xl text-dark-50 appearance-none focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition-all"
                 [class.border-red-500]="contactForm.get('budget')?.invalid && contactForm.get('budget')?.touched">
                 <option value="" disabled selected>Select an option</option>
-                <option value="10k-50k">$10k - $50k</option>
-                <option value="50k-100k">$50k - $100k</option>
-                <option value="100k-250k">$100k - $250k</option>
-                <option value="250k+">$250k+</option>
+                <option value="10k-50k">₹10k - ₹50k</option>
+                <option value="50k-100k">₹50k - ₹1L</option>
+                <option value="100k-250k">₹1L - ₹2.5L</option>
+                <option value="250k+">₹2.5L+</option>
               </select>
               @if (contactForm.get('budget')?.invalid && contactForm.get('budget')?.touched) {
               <p class="text-red-500 text-xs mt-1">Please select an estimated budget.</p>
