@@ -44,9 +44,10 @@ export class AdminBlogFormComponent implements OnInit {
 
     if (this.isEditMode && this.editId) {
       this.blogService.getById(this.editId).subscribe({
-        next: (blog) => {
+        next: (res: any) => {
+          const blog = res?._id ? res : (res?.data ?? res);
           this.form.patchValue({
-            ...blog as any,
+            ...blog,
             content: (blog.content || '').replace(/<br\s*\/?>/gi, '\n')
           });
           if (blog.imageUrl) {
