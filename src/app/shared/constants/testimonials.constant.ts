@@ -9,7 +9,7 @@ export interface Testimonial {
 
 export const TESTIMONIALS: Testimonial[] = [
   {
-    quote: 'Ennovatorz built our Ayurveda e-commerce platform end to end. The checkout flow, payment integration, and admin panel all worked flawlessly from day one. Very professional team.',
+    quote: 'Honestly didn\'t expect this level of quality from an agency. They built our entire Ayurveda store — product pages, cart, payments, everything. Launched on time and barely had any issues after go-live.',
     author: 'Jiaul',
     role: '',
     company: 'Ayurveda Store',
@@ -17,15 +17,15 @@ export const TESTIMONIALS: Testimonial[] = [
     avatar: 'https://api.dicebear.com/7.x/notionists/svg?seed=Jiaul'
   },
   {
-    quote: 'They handled everything from product catalog to order management. The backend APIs were clean, secure, and well-documented. Highly satisfied with the delivery.',
+    quote: 'We had a tight budget and even tighter deadline. Ennovatorz worked with us on both. The admin panel they built saves us hours every week managing orders and inventory.',
     author: 'Ram Niwas',
     role: '',
     company: 'Ayurveda Store',
-    rating: 5,
+    rating: 4,
     avatar: 'https://api.dicebear.com/7.x/notionists/svg?seed=RamNiwas'
   },
   {
-    quote: 'Our dry fish marketplace needed regional logistics and inventory tracking. Ennovatorz nailed every requirement and delivered ahead of schedule. Great experience overall.',
+    quote: 'Getting an online store for dry fish products built was not easy to explain but they got it immediately. Handled the inventory, orders, and delivery tracking without any issues. Happy with the result.',
     author: 'Dipankar',
     role: '',
     company: 'Dry Fish Mart',
@@ -33,23 +33,23 @@ export const TESTIMONIALS: Testimonial[] = [
     avatar: 'https://api.dicebear.com/7.x/notionists/svg?seed=Dipankar'
   },
   {
-    quote: 'The loan portal they built for us handles high volumes of applications with zero downtime. The approval workflow and notifications work exactly as we envisioned.',
+    quote: 'Our loan application volume is high and we needed something reliable. The system they built has been running for months without a single major issue. Support was also quick whenever we had questions.',
     author: 'Sudip',
     role: '',
     company: 'Quick Loans',
-    rating: 5,
+    rating: 4.5,
     avatar: 'https://api.dicebear.com/7.x/notionists/svg?seed=Sudip'
   },
   {
-    quote: 'Responsive team, clean code, and on-time delivery. They understood our requirements without much back and forth. Would definitely work with them again.',
+    quote: 'Good communication throughout the project. They kept us updated at every step and didn\'t disappear after delivery. Small bugs were fixed quickly. Overall a solid team to work with.',
     author: 'Arvind',
     role: '',
     company: 'TechVentures',
-    rating: 5,
+    rating: 4,
     avatar: 'https://api.dicebear.com/7.x/notionists/svg?seed=Arvind'
   },
   {
-    quote: 'From design to deployment, the entire process was smooth. The team was transparent, communicative, and genuinely invested in making our product a success.',
+    quote: 'We were a early stage startup with a lot of changing requirements. They were patient and flexible. The final product looked great and worked well. Would recommend to anyone starting out.',
     author: 'Kavitha',
     role: '',
     company: 'Startup Hub',
