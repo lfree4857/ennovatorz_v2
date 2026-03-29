@@ -15,7 +15,7 @@
           <span class="text-sm font-medium text-dark-400">{{ post.readTime }}</span>
         </div>
 
-        <h1 class="text-3xl md:text-5xl lg:text-6xl font-bold text-white mb-8 leading-[1.15]">{{ post.title }}</h1>
+        <h1 class="text-3xl md:text-5xl lg:text-6xl font-bold text-dark-50 mb-8 leading-[1.15]">{{ post.title }}</h1>
 
         <p class="text-xl text-dark-300 leading-relaxed mb-10 border-l-4 border-primary-500 pl-6 py-2">
           {{ post.shortDescription }}
@@ -28,7 +28,7 @@
               <img [src]="'https://api.dicebear.com/7.x/notionists/svg?seed=' + post.authorName" alt="Author" class="w-full h-full object-cover">
             </div>
             <div>
-              <p class="text-base font-semibold text-white">{{ post.authorName }}</p>
+              <p class="text-base font-semibold text-dark-50">{{ post.authorName }}</p>
               <p class="text-sm text-primary-400">Engineering at Ennovatorz</p>
             </div>
           </div>
@@ -44,13 +44,13 @@
       }
 
       <!-- Article Content -->
-      <article class="prose prose-invert prose-lg max-w-none mb-20 prose-headings:font-bold prose-headings:text-white prose-a:text-primary-400 prose-a:no-underline hover:prose-a:underline prose-li:text-dark-300 prose-p:text-dark-300 prose-p:leading-relaxed prose-strong:text-white" [innerHTML]="post.content">
+      <article class="prose prose-invert prose-lg max-w-none mb-20 prose-headings:font-bold prose-headings:text-dark-50 prose-a:text-primary-400 prose-a:no-underline hover:prose-a:underline prose-li:text-dark-300 prose-p:text-dark-300 prose-p:leading-relaxed prose-strong:text-dark-50" [innerHTML]="post.content">
       </article>
 
       <!-- CTA / Next Steps -->
       <div class="glass-card p-10 md:p-14 text-center glow-border rounded-3xl relative overflow-hidden">
         <div class="absolute inset-0 bg-primary-500/5 mix-blend-overlay"></div>
-        <h3 class="text-2xl md:text-3xl font-bold text-white mb-4 relative z-10">Did you find this insightful?</h3>
+        <h3 class="text-2xl md:text-3xl font-bold text-dark-50 mb-4 relative z-10">Did you find this insightful?</h3>
         <p class="text-lg text-dark-300 mb-8 max-w-2xl mx-auto relative z-10">
           Subscribe to our newsletter for more technical deep dives, or reach out to our team if you need help scaling your architecture.
         </p>
@@ -67,7 +67,7 @@
     } @else {
       <!-- Not Found State -->
       <div class="text-center py-32">
-        <h2 class="text-4xl font-bold text-white mb-4">Post Not Found</h2>
+        <h2 class="text-4xl font-bold text-dark-50 mb-4">Post Not Found</h2>
         <p class="text-dark-300 mb-8">The article you're looking for doesn't exist or has been moved.</p>
         <a routerLink="/blog" class="btn-primary">Return to Blog</a>
       </div>

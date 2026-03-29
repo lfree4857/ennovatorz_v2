@@ -45,7 +45,10 @@ export class AdminBlogFormComponent implements OnInit {
     if (this.isEditMode && this.editId) {
       this.blogService.getById(this.editId).subscribe({
         next: (blog) => {
-          this.form.patchValue(blog as any);
+          this.form.patchValue({
+            ...blog as any,
+            content: (blog.content || '').replace(/<br\s*\/?>/gi, '\n')
+          });
           if (blog.imageUrl) {
             let url = blog.imageUrl;
             if (url.startsWith('http')) {
@@ -74,7 +77,7 @@ export class AdminBlogFormComponent implements OnInit {
     const v = this.form.value;
     const formData = new FormData();
     formData.append('title', v.title!);
-    formData.append('content', v.content!);
+    formData.append('content', (v.content!).replace(/\n/g, '<br>'));
     formData.append('shortDescription', v.shortDescription!);
     formData.append('topic', v.topic!);
     formData.append('authorName', v.authorName!);
