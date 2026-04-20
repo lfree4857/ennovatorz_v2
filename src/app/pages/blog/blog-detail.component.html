@@ -77,7 +77,7 @@
       </article>
 
       <!-- CTA / Next Steps -->
-      <div class="glass-card p-10 md:p-14 text-center glow-border rounded-3xl relative overflow-hidden">
+      <div class="glass-card p-10 md:p-14 text-center glow-border rounded-3xl relative overflow-hidden mb-20">
         <div class="absolute inset-0 bg-primary-500/5 mix-blend-overlay"></div>
         <h3 class="text-2xl md:text-3xl font-bold text-dark-50 mb-4 relative z-10">Did you find this insightful?</h3>
         <p class="text-lg text-dark-300 mb-8 max-w-2xl mx-auto relative z-10">
@@ -85,14 +85,81 @@
         </p>
         <div class="flex flex-col sm:flex-row items-center justify-center gap-4 relative z-10">
           <a routerLink="/contact" class="btn-primary text-base px-8 py-3.5 w-full sm:w-auto">Start a Conversation</a>
-          <!-- <button class="btn-secondary text-base px-8 py-3.5 w-full sm:w-auto">Subscribe</button> -->
         </div>
-        <!-- Share on Social -->
-        <!-- <div class="mt-8 pt-8 border-t border-dark-700/30 relative z-10">
-          <p class="text-sm text-dark-400 mb-4">Share this article</p>
-          <app-social-links [shareMode]="true" [shareTitle]="post.title" size="sm" />
-        </div> -->
       </div>
+
+      <!-- More from our Knowledge Hub -->
+      @if (relatedPosts.length) {
+        <div class="border-t border-dark-700/40 pt-16 pb-8">
+          <h2 class="text-2xl md:text-3xl font-bold text-dark-50 mb-2">More from our Knowledge Hub</h2>
+          <div class="border-b border-dark-700/40 mb-10"></div>
+
+          @if (relatedPosts.length === 1) {
+            <!-- Single related post — full width -->
+            <a [routerLink]="['/blog', relatedPosts[0]._id]" class="group flex gap-6 items-start">
+              @if (relatedPosts[0].imageUrl) {
+                <div class="w-48 h-36 flex-shrink-0 rounded-2xl overflow-hidden shadow-lg">
+                  <img [src]="getImageUrl(relatedPosts[0].imageUrl)" [alt]="relatedPosts[0].title"
+                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                </div>
+              }
+              <div>
+                <span class="text-xs font-semibold text-primary-500 uppercase tracking-wider">{{ relatedPosts[0].topic }}</span>
+                <h3 class="text-xl font-bold text-dark-50 mt-2 group-hover:text-primary-400 transition-colors leading-snug">
+                  {{ relatedPosts[0].title }}
+                </h3>
+                <p class="text-sm text-dark-400 mt-2 line-clamp-2">{{ relatedPosts[0].shortDescription }}</p>
+                <span class="inline-flex items-center gap-1 text-sm text-primary-400 mt-3 font-medium">
+                  Read more
+                  <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                </span>
+              </div>
+            </a>
+          } @else {
+            <!-- Multiple related posts: featured left + stacked list right -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+
+              <!-- Featured post (left) -->
+              <a [routerLink]="['/blog', relatedPosts[0]._id]" class="group block">
+                <div class="rounded-2xl overflow-hidden aspect-[4/3] mb-4 shadow-lg">
+                  <img [src]="getImageUrl(relatedPosts[0].imageUrl)" [alt]="relatedPosts[0].title"
+                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                </div>
+                <span class="text-xs font-semibold text-primary-500 uppercase tracking-wider">{{ relatedPosts[0].topic }}</span>
+                <h3 class="text-lg font-bold text-dark-50 mt-2 group-hover:text-primary-400 transition-colors leading-snug">
+                  {{ relatedPosts[0].title }}
+                </h3>
+                <p class="text-sm text-dark-400 mt-2 line-clamp-2">{{ relatedPosts[0].shortDescription }}</p>
+              </a>
+
+              <!-- Stacked list (right) -->
+              <div class="flex flex-col divide-y divide-dark-700/40">
+                @for (related of relatedPosts.slice(1); track related._id) {
+                  <a [routerLink]="['/blog', related._id]" class="group flex items-start gap-4 py-5 first:pt-0">
+                    <div class="flex-1 min-w-0">
+                      <span class="text-xs font-semibold text-primary-500 uppercase tracking-wider">{{ related.topic }}</span>
+                      <h4 class="text-sm font-bold text-dark-50 mt-1 group-hover:text-primary-400 transition-colors leading-snug line-clamp-3">
+                        {{ related.title }}
+                      </h4>
+                      <span class="inline-flex items-center gap-1 text-xs text-dark-400 mt-2 group-hover:text-primary-400 transition-colors font-medium">
+                        Read more
+                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                      </span>
+                    </div>
+                    @if (related.imageUrl) {
+                      <div class="w-20 h-20 flex-shrink-0 rounded-xl overflow-hidden">
+                        <img [src]="getImageUrl(related.imageUrl)" [alt]="related.title"
+                          class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                      </div>
+                    }
+                  </a>
+                }
+              </div>
+
+            </div>
+          }
+        </div>
+      }
     } @else {
       <!-- Not Found State -->
       <div class="text-center py-32">

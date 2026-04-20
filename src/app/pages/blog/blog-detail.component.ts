@@ -21,6 +21,7 @@ export class BlogDetailComponent implements OnInit {
   private sanitizer = inject(DomSanitizer);
 
   post: Blog | null = null;
+  relatedPosts: Blog[] = [];
   loading = true;
   carouselIndex = 0;
   sanitizedContent: SafeHtml = '';
@@ -58,6 +59,12 @@ export class BlogDetailComponent implements OnInit {
             this.seoService.setPostSeo(this.post);
             const cleaned = this.cleanQuillHtml(this.post.content || '');
             this.sanitizedContent = this.sanitizer.bypassSecurityTrustHtml(cleaned);
+            this.blogService.getAll().subscribe({
+              next: (res: any) => {
+                const all: Blog[] = Array.isArray(res) ? res : (res?.data ?? []);
+                this.relatedPosts = all.filter(b => b._id !== this.post!._id).slice(0, 5);
+              }
+            });
           }
         },
         error: () => { this.post = null; this.loading = false; }
