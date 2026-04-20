@@ -97,9 +97,10 @@
           @if (relatedPosts.length === 1) {
             <!-- Single related post — full width -->
             <a [routerLink]="['/blog', relatedPosts[0]._id]" class="group flex gap-6 items-start">
-              @if (relatedPosts[0].imageUrl) {
+              @if (getCoverImage(relatedPosts[0])) {
                 <div class="w-48 h-36 flex-shrink-0 rounded-2xl overflow-hidden shadow-lg">
-                  <img [src]="getImageUrl(relatedPosts[0].imageUrl)" [alt]="relatedPosts[0].title"
+                  <img [src]="getCoverImage(relatedPosts[0])" [alt]="relatedPosts[0].title"
+                    crossorigin="anonymous"
                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                 </div>
               }
@@ -121,9 +122,10 @@
 
               <!-- Featured post (left) -->
               <a [routerLink]="['/blog', relatedPosts[0]._id]" class="group block">
-                @if (relatedPosts[0].imageUrl) {
+                @if (getCoverImage(relatedPosts[0])) {
                   <div class="rounded-2xl overflow-hidden aspect-[4/3] mb-4 shadow-lg">
-                    <img [src]="getImageUrl(relatedPosts[0].imageUrl)" [alt]="relatedPosts[0].title"
+                    <img [src]="getCoverImage(relatedPosts[0])" [alt]="relatedPosts[0].title"
+                      crossorigin="anonymous"
                       class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                   </div>
                 }
@@ -148,9 +150,10 @@
                         <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
                       </span>
                     </div>
-                    @if (related.imageUrl) {
+                    @if (getCoverImage(related)) {
                       <div class="w-20 h-20 flex-shrink-0 rounded-xl overflow-hidden">
-                        <img [src]="getImageUrl(related.imageUrl)" [alt]="related.title"
+                        <img [src]="getCoverImage(related)" [alt]="related.title"
+                          crossorigin="anonymous"
                           class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                       </div>
                     }

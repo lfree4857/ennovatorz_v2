@@ -34,6 +34,11 @@ export class BlogDetailComponent implements OnInit {
     return `${environment.uploadsUrl}${imageUrl}`;
   }
 
+  /** Returns cover image URL, falling back to first image in images[] if imageUrl is missing */
+  getCoverImage(blog: Blog): string {
+    return this.getImageUrl(blog.imageUrl || blog.images?.[0]);
+  }
+
   /** Strip only color/background-color properties from inline style attributes, preserve others */
   private cleanQuillHtml(html: string): string {
     return html.replace(/style="([^"]*)"/gi, (_match, styles: string) => {
