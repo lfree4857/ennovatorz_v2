@@ -1,6 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { DatePipe } from '@angular/common';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { BlogService, Blog } from '../../services/blog.service';
 import { SeoService } from '../../core/services/seo.service';
 import { environment } from '../../../environments/environment';
@@ -17,8 +18,12 @@ export class BlogDetailComponent implements OnInit {
   private route = inject(ActivatedRoute);
   private blogService = inject(BlogService);
   private seoService = inject(SeoService);
+  private sanitizer = inject(DomSanitizer);
+
   post: Blog | null = null;
   loading = true;
+  carouselIndex = 0;
+  sanitizedContent: SafeHtml = '';
 
   getImageUrl(imageUrl?: string): string {
     if (!imageUrl) return '';
@@ -26,6 +31,19 @@ export class BlogDetailComponent implements OnInit {
       try { imageUrl = new URL(imageUrl).pathname; } catch { return imageUrl; }
     }
     return `${environment.uploadsUrl}${imageUrl}`;
+  }
+
+  /** Strip only color/background-color properties from inline style attributes, preserve others */
+  private cleanQuillHtml(html: string): string {
+    return html.replace(/style="([^"]*)"/gi, (_match, styles: string) => {
+      const cleaned = styles
+        .split(';')
+        .filter(prop => !/^\s*(color|background(-color)?|background-color)\s*:/i.test(prop))
+        .join(';')
+        .trim()
+        .replace(/;+$/, '');
+      return cleaned ? `style="${cleaned}"` : '';
+    });
   }
 
   ngOnInit() {
@@ -36,7 +54,11 @@ export class BlogDetailComponent implements OnInit {
         next: (data: any) => {
           this.post = data?._id ? data : (data?.data ?? null);
           this.loading = false;
-          if (this.post) this.seoService.setPostSeo(this.post);
+          if (this.post) {
+            this.seoService.setPostSeo(this.post);
+            const cleaned = this.cleanQuillHtml(this.post.content || '');
+            this.sanitizedContent = this.sanitizer.bypassSecurityTrustHtml(cleaned);
+          }
         },
         error: () => { this.post = null; this.loading = false; }
       });

@@ -36,30 +36,45 @@
         </div>
       </div>
 
-      <!-- Feature Image -->
-      @if (post.imageUrl) {
+      <!-- Cover / Carousel -->
+      @if (post.images && post.images.length > 1) {
+        <!-- Carousel -->
+        <div class="carousel-wrapper mb-16">
+          <div class="carousel-track" [style.transform]="'translateX(-' + carouselIndex * 100 + '%)'">
+            @for (img of post.images; track img) {
+              <div class="carousel-slide">
+                <img [src]="getImageUrl(img)" crossorigin="anonymous" alt="Blog image" />
+              </div>
+            }
+          </div>
+          <!-- Prev / Next -->
+          @if (carouselIndex > 0) {
+            <button class="carousel-btn carousel-btn-prev" (click)="carouselIndex = carouselIndex - 1" aria-label="Previous">
+              <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+            </button>
+          }
+          @if (carouselIndex < post.images.length - 1) {
+            <button class="carousel-btn carousel-btn-next" (click)="carouselIndex = carouselIndex + 1" aria-label="Next">
+              <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </button>
+          }
+          <!-- Dots -->
+          <div class="carousel-dots">
+            @for (img of post.images; track img; let i = $index) {
+              <button class="carousel-dot" [class.active]="i === carouselIndex" (click)="carouselIndex = i"></button>
+            }
+          </div>
+        </div>
+      } @else if (post.imageUrl) {
+        <!-- Single cover image -->
         <div class="w-full h-64 md:h-96 rounded-2xl mb-16 overflow-hidden shadow-2xl">
           <img [src]="getImageUrl(post.imageUrl)" alt="Cover" crossorigin="anonymous" class="w-full h-full object-cover" />
         </div>
       }
 
       <!-- Article Content -->
-      <article class="prose prose-invert prose-lg max-w-none mb-20 prose-headings:font-bold prose-headings:text-dark-50 prose-a:text-primary-400 prose-a:no-underline hover:prose-a:underline prose-li:text-dark-300 prose-p:text-dark-300 prose-p:leading-relaxed prose-strong:text-dark-50" [innerHTML]="post.content">
+      <article class="blog-content mb-20" [innerHTML]="sanitizedContent">
       </article>
-
-      <!-- Image Gallery -->
-      @if (post.images && post.images.length > 1) {
-        <div class="mb-20">
-          <h3 class="text-lg font-semibold text-dark-200 mb-4">Gallery</h3>
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            @for (img of post.images.slice(1); track img) {
-              <div class="rounded-2xl overflow-hidden shadow-lg aspect-video">
-                <img [src]="getImageUrl(img)" crossorigin="anonymous" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
-              </div>
-            }
-          </div>
-        </div>
-      }
 
       <!-- CTA / Next Steps -->
       <div class="glass-card p-10 md:p-14 text-center glow-border rounded-3xl relative overflow-hidden">
