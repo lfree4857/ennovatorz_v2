@@ -47,6 +47,20 @@
       <article class="prose prose-invert prose-lg max-w-none mb-20 prose-headings:font-bold prose-headings:text-dark-50 prose-a:text-primary-400 prose-a:no-underline hover:prose-a:underline prose-li:text-dark-300 prose-p:text-dark-300 prose-p:leading-relaxed prose-strong:text-dark-50" [innerHTML]="post.content">
       </article>
 
+      <!-- Image Gallery -->
+      @if (post.images && post.images.length > 1) {
+        <div class="mb-20">
+          <h3 class="text-lg font-semibold text-dark-200 mb-4">Gallery</h3>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            @for (img of post.images.slice(1); track img) {
+              <div class="rounded-2xl overflow-hidden shadow-lg aspect-video">
+                <img [src]="getImageUrl(img)" crossorigin="anonymous" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
+              </div>
+            }
+          </div>
+        </div>
+      }
+
       <!-- CTA / Next Steps -->
       <div class="glass-card p-10 md:p-14 text-center glow-border rounded-3xl relative overflow-hidden">
         <div class="absolute inset-0 bg-primary-500/5 mix-blend-overlay"></div>

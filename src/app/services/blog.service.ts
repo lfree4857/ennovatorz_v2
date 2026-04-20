@@ -20,8 +20,16 @@ export interface Blog {
   authorName: string;
   readTime: string;
   imageUrl?: string;
+  images?: string[];
   slug?: string;
   createdAt?: string;
+  // SEO fields
+  metaTitle?: string;
+  metaDescription?: string;
+  keywords?: string;
+  tags?: string[];
+  canonicalUrl?: string;
+  ogImage?: string;
 }
 
 @Injectable({ providedIn: 'root' })

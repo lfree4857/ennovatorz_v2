@@ -125,6 +125,43 @@ a {
   transition: color 0.2s ease;
 }
 
+/* ===== Quill Editor — Tailwind reset fix ===== */
+.ql-toolbar.ql-snow svg {
+  width: 18px !important;
+  height: 18px !important;
+  display: inline-block !important;
+  float: none !important;
+}
+.ql-snow .ql-stroke {
+  fill: none !important;
+  stroke: #64748b !important;
+}
+.ql-snow .ql-fill,
+.ql-snow .ql-stroke.ql-fill {
+  fill: #64748b !important;
+  stroke: none !important;
+}
+.ql-snow .ql-thin,
+.ql-snow .ql-stroke.ql-thin {
+  stroke-width: 1 !important;
+}
+.ql-snow button:hover .ql-stroke,
+.ql-snow .ql-picker-label:hover .ql-stroke {
+  stroke: #0f172a !important;
+}
+.ql-snow button:hover .ql-fill,
+.ql-snow .ql-picker-label:hover .ql-fill {
+  fill: #0f172a !important;
+}
+.ql-snow button.ql-active .ql-stroke {
+  stroke: #4f46e5 !important;
+}
+.ql-snow button.ql-active .ql-fill {
+  fill: #4f46e5 !important;
+}
+.ql-snow .ql-picker-label::before { color: #64748b; }
+.ql-snow .ql-picker-label:hover::before { color: #0f172a; }
+
 /* ===== Button Base ===== */
 .btn-primary {
   @apply inline-flex items-center justify-center px-6 py-3 bg-primary-600 text-white font-semibold rounded-xl

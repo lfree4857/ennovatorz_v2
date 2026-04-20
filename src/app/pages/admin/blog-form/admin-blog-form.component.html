@@ -53,9 +53,13 @@
         <!-- Content -->
         <div>
           <label class="block text-sm font-medium text-dark-300 mb-2">Content <span class="text-red-400">*</span></label>
-          <textarea formControlName="content" rows="10" placeholder="Full blog content (HTML supported)"
-            class="w-full px-4 py-3 bg-dark-900 border border-dark-700 rounded-xl text-dark-50 placeholder-dark-500 focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition-all resize-y font-mono text-sm"
-            [class.border-red-500]="form.get('content')?.invalid && form.get('content')?.touched"></textarea>
+          <quill-editor
+            formControlName="content"
+            [modules]="quillModules"
+            placeholder="Write your blog content here..."
+            [class.ql-error]="form.get('content')?.invalid && form.get('content')?.touched"
+            class="block w-full rounded-xl overflow-hidden">
+          </quill-editor>
           @if (form.get('content')?.invalid && form.get('content')?.touched) {
             <p class="text-red-500 text-xs mt-1">Content is required.</p>
           }
@@ -100,22 +104,95 @@
           }
         </div>
 
-        <!-- Cover Image -->
+        <!-- Images -->
         <div>
-          <label class="block text-sm font-medium text-dark-300 mb-2">Cover Image</label>
-          <div class="border-2 border-dashed border-dark-700 rounded-xl p-6 text-center hover:border-primary-500/50 transition-all cursor-pointer"
+          <label class="block text-sm font-medium text-dark-300 mb-2">Images <span class="text-dark-500 text-xs">(first image = cover)</span></label>
+
+          <!-- Previews Grid -->
+          @if (imagePreviews.length) {
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-3">
+              @for (preview of imagePreviews; track preview; let i = $index) {
+                <div class="relative group rounded-xl overflow-hidden border border-dark-700 aspect-video">
+                  <img [src]="preview" crossorigin="anonymous" class="w-full h-full object-cover" />
+                  @if (i === 0) {
+                    <span class="absolute top-2 left-2 text-xs bg-primary-500 text-white px-2 py-0.5 rounded-full font-semibold">Cover</span>
+                  }
+                  <button type="button" (click)="removeImage(i)"
+                    class="absolute top-2 right-2 w-6 h-6 rounded-full bg-red-500/80 text-white text-xs flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                    &times;
+                  </button>
+                </div>
+              }
+            </div>
+          }
+
+          <!-- Upload Zone -->
+          <div class="border-2 border-dashed border-dark-700 rounded-xl p-5 text-center hover:border-primary-500/50 transition-all cursor-pointer"
             (click)="fileInput.click()">
-            @if (imagePreview) {
-              <img [src]="imagePreview" alt="Preview" crossorigin="anonymous" class="max-h-48 mx-auto rounded-lg object-cover mb-3" />
-              <p class="text-xs text-dark-500">Click to change image</p>
-            } @else {
-              <svg class="w-10 h-10 text-dark-600 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-              </svg>
-              <p class="text-dark-400 text-sm">Click to upload cover image</p>
-              <p class="text-dark-500 text-xs mt-1">JPG, PNG, WEBP supported</p>
-            }
-            <input #fileInput type="file" accept="image/*" class="hidden" (change)="onFileChange($event)" />
+            <svg class="w-8 h-8 text-dark-600 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+            </svg>
+            <p class="text-dark-400 text-sm">Click to add images</p>
+            <p class="text-dark-500 text-xs mt-1">JPG, PNG, WEBP — multiple allowed</p>
+            <input #fileInput type="file" accept="image/*" multiple class="hidden" (change)="onFileChange($event)" />
+          </div>
+        </div>
+
+        <!-- SEO Section -->
+        <div class="border-t border-dark-700/50 pt-6">
+          <h3 class="text-base font-semibold text-dark-200 mb-1">SEO Settings</h3>
+          <p class="text-xs text-dark-500 mb-5">Optimize this post for search engines. Leave blank to use defaults from title &amp; description.</p>
+
+          <div class="space-y-5">
+
+            <!-- Meta Title -->
+            <div>
+              <label class="block text-sm font-medium text-dark-300 mb-2">Meta Title</label>
+              <input formControlName="metaTitle" type="text" placeholder="SEO title (defaults to post title)"
+                class="w-full px-4 py-3 bg-dark-900 border border-dark-700 rounded-xl text-dark-50 placeholder-dark-500 focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition-all" />
+            </div>
+
+            <!-- Meta Description -->
+            <div>
+              <label class="block text-sm font-medium text-dark-300 mb-2">Meta Description</label>
+              <textarea formControlName="metaDescription" rows="2" placeholder="SEO description (defaults to short description)"
+                class="w-full px-4 py-3 bg-dark-900 border border-dark-700 rounded-xl text-dark-50 placeholder-dark-500 focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition-all resize-none"></textarea>
+            </div>
+
+            <!-- Keywords -->
+            <div>
+              <label class="block text-sm font-medium text-dark-300 mb-2">Keywords</label>
+              <input formControlName="keywords" type="text" placeholder="e.g. angular, nestjs, web development"
+                class="w-full px-4 py-3 bg-dark-900 border border-dark-700 rounded-xl text-dark-50 placeholder-dark-500 focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition-all" />
+              <p class="text-dark-500 text-xs mt-1">Comma-separated keywords for the meta keywords tag.</p>
+            </div>
+
+            <!-- Tags -->
+            <div>
+              <label class="block text-sm font-medium text-dark-300 mb-2">Tags</label>
+              <div class="w-full min-h-[48px] px-3 py-2 bg-dark-900 border border-dark-700 rounded-xl flex flex-wrap gap-2 items-center focus-within:border-primary-500 focus-within:ring-1 focus-within:ring-primary-500 transition-all">
+                @for (tag of tags; track tag) {
+                  <span class="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-primary-500/15 border border-primary-500/30 text-primary-300 text-xs font-medium">
+                    {{ tag }}
+                    <button type="button" (click)="removeTag(tag)" class="ml-1 text-primary-400 hover:text-red-400 transition-colors leading-none">&times;</button>
+                  </span>
+                }
+                <input
+                  type="text"
+                  [(ngModel)]="tagInput"
+                  [ngModelOptions]="{standalone: true}"
+                  (keydown)="onTagKeydown($event)"
+                  (blur)="addTag(tagInput)"
+                  placeholder="Add tag, press Enter or comma"
+                  class="flex-1 min-w-[140px] bg-transparent text-dark-50 placeholder-dark-500 text-sm outline-none py-1" />
+              </div>
+              <p class="text-dark-500 text-xs mt-1">Press Enter or comma to add a tag.</p>
+            </div>
+
+            <!-- Canonical URL and OG Image are auto-managed by the backend -->
+            <!-- canonicalUrl: auto-set to /blog/{_id} on create -->
+            <!-- ogImage: auto-set from cover image on create, synced on image update -->
+
           </div>
         </div>
 

@@ -2,6 +2,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { BlogService, Blog } from '../../services/blog.service';
+import { SeoService } from '../../core/services/seo.service';
 import { environment } from '../../../environments/environment';
 import { SocialLinksComponent } from '../../shared/components/social-links/social-links.component';
 
@@ -15,6 +16,7 @@ import { SocialLinksComponent } from '../../shared/components/social-links/socia
 export class BlogDetailComponent implements OnInit {
   private route = inject(ActivatedRoute);
   private blogService = inject(BlogService);
+  private seoService = inject(SeoService);
   post: Blog | null = null;
   loading = true;
 
@@ -31,7 +33,11 @@ export class BlogDetailComponent implements OnInit {
       const id = params.get('slug');
       if (!id) { this.loading = false; return; }
       this.blogService.getById(id).subscribe({
-        next: (data: any) => { this.post = data?._id ? data : (data?.data ?? null); this.loading = false; },
+        next: (data: any) => {
+          this.post = data?._id ? data : (data?.data ?? null);
+          this.loading = false;
+          if (this.post) this.seoService.setPostSeo(this.post);
+        },
         error: () => { this.post = null; this.loading = false; }
       });
     });
