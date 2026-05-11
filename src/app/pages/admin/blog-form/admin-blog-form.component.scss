@@ -1,1 +1,86 @@
 :host { display: block; }
+
+/* Quill Editor — dark theme override */
+quill-editor {
+  display: block;
+
+  .ql-toolbar {
+    background: #1a1f2e;
+    border: 1px solid rgba(255,255,255,0.1) !important;
+    border-bottom: 1px solid rgba(255,255,255,0.06) !important;
+    border-radius: 12px 12px 0 0;
+    padding: 10px 12px;
+    flex-wrap: wrap;
+    gap: 4px;
+
+    .ql-formats { margin-right: 8px; }
+
+    button, .ql-picker-label {
+      color: #94a3b8 !important;
+      &:hover { color: #fff !important; }
+      .ql-stroke { stroke: #94a3b8 !important; fill: none !important; }
+      .ql-fill  { fill: #94a3b8 !important; stroke: none !important; }
+      &:hover .ql-stroke { stroke: #fff !important; }
+      &:hover .ql-fill   { fill: #fff !important; }
+    }
+
+    .ql-active {
+      color: #3384e4 !important;
+      .ql-stroke { stroke: #3384e4 !important; }
+      .ql-fill   { fill:   #3384e4 !important; }
+    }
+
+    .ql-picker-options {
+      background: #1a1f2e !important;
+      border: 1px solid rgba(255,255,255,0.1) !important;
+      border-radius: 8px;
+      .ql-picker-item { color: #94a3b8 !important;
+        &:hover { color: #fff !important; background: rgba(51,132,228,0.15) !important; }
+      }
+    }
+  }
+
+  .ql-container {
+    background: #0d1117;
+    border: 1px solid rgba(255,255,255,0.1) !important;
+    border-top: none !important;
+    border-radius: 0 0 12px 12px;
+    font-size: 15px;
+    min-height: 450px;
+  }
+
+  .ql-editor {
+    color: #f1f5f9;
+    min-height: 450px;
+    line-height: 1.8;
+    padding: 16px 20px;
+
+    &.ql-blank::before {
+      color: #4b5563 !important;
+      font-style: normal;
+    }
+
+    h1, h2, h3, h4, h5, h6 { color: #f1f5f9; font-weight: 700; margin: 1em 0 0.4em; }
+    p  { color: #cbd5e1; margin-bottom: 0.75em; }
+    a  { color: #3384e4; }
+    strong { color: #f1f5f9; }
+    blockquote {
+      border-left: 4px solid #3384e4;
+      color: #94a3b8;
+      padding-left: 16px;
+      margin: 12px 0;
+    }
+    pre.ql-syntax {
+      background: #161b27;
+      color: #7dd3fc;
+      border-radius: 8px;
+      padding: 14px 18px;
+      font-size: 13px;
+    }
+    ul, ol { color: #cbd5e1; padding-left: 1.5em; }
+  }
+
+  &.ql-error .ql-container {
+    border-color: #ef4444 !important;
+  }
+}

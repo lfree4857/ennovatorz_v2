@@ -5,46 +5,47 @@ export const routes: Routes = [
   {
     path: '',
     loadComponent: () => import('./pages/home/home.component').then(m => m.HomeComponent),
-    data: { title: 'Ennovatorz — Bespoke Software Development', description: 'Transforming ideas into scalable digital products. Ennovatorz is a premier software agency specializing in web and mobile applications.' }
+    data: { title: 'Ennovatorz — Bespoke Software Development', description: 'Transforming ideas into scalable digital products. Ennovatorz is a premier software agency specializing in web and mobile applications.', keywords: 'software development agency, bespoke software, web development, mobile apps, SaaS, digital products, startup development' }
   },
   {
     path: 'about',
     loadComponent: () => import('./pages/about/about.component').then(m => m.AboutComponent),
-    data: { title: 'About Ennovatorz | Our Team & Vision', description: 'Learn about Ennovatorz, our world-class engineering team, and our commitment to delivering exceptional software solutions.' }
+    data: { title: 'About Ennovatorz | Our Team & Vision', description: 'Learn about Ennovatorz, our world-class engineering team, and our commitment to delivering exceptional software solutions.', keywords: 'about ennovatorz, software development team, engineering team, company vision, tech agency' }
   },
   {
     path: 'services',
     loadComponent: () => import('./pages/services/services.component').then(m => m.ServicesComponent),
-    data: { title: 'Our Services | Custom Software, SaaS & Mobile Apps', description: 'We offer full-cycle software development services, from initial product design to high-performance SaaS platforms and robust mobile applications.' }
+    data: { title: 'Our Services | Custom Software, SaaS & Mobile Apps', description: 'We offer full-cycle software development services, from initial product design to high-performance SaaS platforms and robust mobile applications.', keywords: 'custom software development, SaaS development, mobile app development, UI UX design, cloud solutions, AI ML integration, consulting' }
   },
   {
     path: 'portfolio',
     loadComponent: () => import('./pages/portfolio/portfolio.component').then(m => m.PortfolioComponent),
-    data: { title: 'Our Portfolio | Success Stories & Case Studies', description: 'Explore our portfolio of successful software projects. See how we have helped startups and enterprises achieve their digital goals.' }
+    data: { title: 'Our Portfolio | Success Stories & Case Studies', description: 'Explore our portfolio of successful software projects. See how we have helped startups and enterprises achieve their digital goals.', keywords: 'software portfolio, case studies, web app projects, mobile app projects, client success stories, ennovatorz work' }
   },
   {
     path: 'blog',
     loadComponent: () => import('./pages/blog/blog-list.component').then(m => m.BlogListComponent),
-    data: { title: 'Tech Blog & Insights | Ennovatorz', description: 'Read our latest articles on software engineering, best practices, modern frameworks, and tech industry trends.' }
+    data: { title: 'Tech Blog & Insights | Ennovatorz', description: 'Read our latest articles on software engineering, best practices, modern frameworks, and tech industry trends.', keywords: 'tech blog, software engineering articles, web development tips, Angular, NestJS, cloud, programming insights' }
   },
   {
     path: 'blog/:slug',
     loadComponent: () => import('./pages/blog/blog-detail.component').then(m => m.BlogDetailComponent),
+    data: { skipSeoInit: true }
   },
   {
     path: 'technologies',
     loadComponent: () => import('./pages/technologies/technologies.component').then(m => m.TechnologiesComponent),
-    data: { title: 'Technologies We Use | Angular, NestJS, Node & More', description: 'Discover the modern tech stack we use to build secure, scalable, and high-performance software, including Angular, React, Node.js, and Cloud services.' }
+    data: { title: 'Technologies We Use | Angular, NestJS, Node & More', description: 'Discover the modern tech stack we use to build secure, scalable, and high-performance software, including Angular, React, Node.js, and Cloud services.', keywords: 'Angular, NestJS, Node.js, React, TypeScript, MongoDB, PostgreSQL, AWS, Docker, tech stack' }
   },
   {
     path: 'testimonials',
     loadComponent: () => import('./pages/testimonials/testimonials.component').then(m => m.TestimonialsComponent),
-    data: { title: 'Client Testimonials | What People Say About Us', description: 'Read reviews and testimonials from clients who have partnered with Ennovatorz to build their digital products.' }
+    data: { title: 'Client Testimonials | What People Say About Us', description: 'Read reviews and testimonials from clients who have partnered with Ennovatorz to build their digital products.', keywords: 'client testimonials, software agency reviews, ennovatorz reviews, customer feedback, client success' }
   },
   {
     path: 'contact',
     loadComponent: () => import('./pages/contact/contact.component').then(m => m.ContactComponent),
-    data: { title: 'Contact Ennovatorz | Start Your Project', description: 'Get in touch with our team of experts. Let us discuss how we can help you build your next great software product.' }
+    data: { title: 'Contact Ennovatorz | Start Your Project', description: 'Get in touch with our team of experts. Let us discuss how we can help you build your next great software product.', keywords: 'contact ennovatorz, hire software developers, start a project, software development inquiry, get a quote' }
   },
   // {
   //   path: 'pricing',

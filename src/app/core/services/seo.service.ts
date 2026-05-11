@@ -3,6 +3,7 @@ import { Title, Meta } from '@angular/platform-browser';
 import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { DOCUMENT } from '@angular/common';
 import { filter, map, mergeMap } from 'rxjs/operators';
+import { Blog } from '../../services/blog.service';
 
 @Injectable({
   providedIn: 'root'
@@ -25,9 +26,17 @@ export class SeoService {
       filter(route => route.outlet === 'primary'),
       mergeMap(route => route.data)
     ).subscribe(data => {
+      if (data['skipSeoInit']) return; // component handles SEO via setPostSeo()
+
       const title = data['title'] || 'Ennovatorz — Elite Software Development Agency';
       const description = data['description'] || 'Elite software development agency building scalable solutions for startups and enterprises.';
       const keywords = data['keywords'] || 'software development, web development, SaaS, API, mobile apps';
+
+      if (data['noindex']) {
+        this.metaService.updateTag({ name: 'robots', content: 'noindex, nofollow' });
+      } else {
+        this.metaService.updateTag({ name: 'robots', content: 'index, follow' });
+      }
 
       this.titleService.setTitle(title);
       this.metaService.updateTag({ name: 'description', content: description });
@@ -35,15 +44,41 @@ export class SeoService {
 
       this.metaService.updateTag({ property: 'og:title', content: title });
       this.metaService.updateTag({ property: 'og:description', content: description });
+      this.metaService.updateTag({ property: 'og:image', content: 'https://dev.ennovatorz.com/logo/innovators.webp' });
 
       this.metaService.updateTag({ name: 'twitter:title', content: title });
       this.metaService.updateTag({ name: 'twitter:description', content: description });
+      this.metaService.updateTag({ name: 'twitter:image', content: 'https://dev.ennovatorz.com/logo/innovators.webp' });
 
       this.updateCanonicalUrl();
     });
   }
 
-  private updateCanonicalUrl() {
+  setPostSeo(post: Blog) {
+    const title = post.metaTitle || post.title;
+    const description = post.metaDescription || post.shortDescription;
+    const keywords = post.keywords || post.tags?.join(', ') || '';
+    const baseUrl = 'https://dev.ennovatorz.com';
+    const canonical = post.canonicalUrl || `${baseUrl}/blog/${post._id}`;
+    const ogImage = post.ogImage || post.imageUrl || '';
+
+    this.titleService.setTitle(title);
+    this.metaService.updateTag({ name: 'description', content: description });
+    if (keywords) this.metaService.updateTag({ name: 'keywords', content: keywords });
+
+    this.metaService.updateTag({ property: 'og:title', content: title });
+    this.metaService.updateTag({ property: 'og:description', content: description });
+    this.metaService.updateTag({ property: 'og:url', content: canonical });
+    if (ogImage) this.metaService.updateTag({ property: 'og:image', content: ogImage });
+
+    this.metaService.updateTag({ name: 'twitter:title', content: title });
+    this.metaService.updateTag({ name: 'twitter:description', content: description });
+    if (ogImage) this.metaService.updateTag({ name: 'twitter:image', content: ogImage });
+
+    this.updateCanonicalUrl(canonical);
+  }
+
+  private updateCanonicalUrl(overrideUrl?: string) {
     const head = this.document.getElementsByTagName('head')[0];
     let element: HTMLLinkElement | null = this.document.querySelector(`link[rel='canonical']`);
     if (!element) {
@@ -52,10 +87,10 @@ export class SeoService {
       head.appendChild(element);
     }
 
-    // Safely get URL. In SSR, defaultView might be null, so fallback to router.url.
     const baseUrl = 'https://dev.ennovatorz.com';
-    const url = this.document.defaultView ? this.document.defaultView.location.href : baseUrl + this.router.url;
-    element.setAttribute('href', url.split('?')[0]);
-    this.metaService.updateTag({ property: 'og:url', content: url.split('?')[0] });
+    const url = overrideUrl ?? (this.document.defaultView ? this.document.defaultView.location.href : baseUrl + this.router.url);
+    const canonical = url.split('?')[0];
+    element.setAttribute('href', canonical);
+    this.metaService.updateTag({ property: 'og:url', content: canonical });
   }
 }

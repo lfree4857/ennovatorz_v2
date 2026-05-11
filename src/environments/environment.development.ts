@@ -5,3 +5,4 @@ export const environment = {
   apiUrl: 'https://devapi.ennovatorz.com',
   uploadsUrl: 'https://devapi.ennovatorz.com'
 };
+
