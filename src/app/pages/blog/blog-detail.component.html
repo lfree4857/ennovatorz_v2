@@ -1,76 +1,88 @@
 <section class="section-padding pt-32 pb-16 min-h-screen">
   <div class="max-w-4xl mx-auto">
     <!-- Back to Blog Link -->
-    <a routerLink="/blog" class="inline-flex items-center text-sm font-medium text-dark-400 hover:text-primary-400 transition-colors mb-10 group">
-      <svg class="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+    <a routerLink="/blog"
+      class="inline-flex items-center text-sm font-medium text-dark-400 hover:text-primary-400 transition-colors mb-10 group">
+      <svg class="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor"
+        viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+      </svg>
       Back to all posts
     </a>
 
-    @if (loading) {
+    <!-- @if (loading) {
       <div class="text-center py-32 text-dark-400">Loading...</div>
-    } @else if (post) {
-      <div class="mb-12">
-        <div class="flex items-center gap-4 mb-6">
-          <span class="px-3 py-1 rounded-full bg-primary-500/10 text-primary-400 border border-primary-500/20 text-xs font-bold uppercase tracking-wider">{{ post.topic }}</span>
-          <span class="text-sm font-medium text-dark-400">{{ post.readTime }}</span>
-        </div>
-
-        <h1 class="text-3xl md:text-5xl lg:text-6xl font-bold text-dark-50 mb-8 leading-[1.15]">{{ post.title }}</h1>
-
-        <p class="text-xl text-dark-300 leading-relaxed mb-10 border-l-4 border-primary-500 pl-6 py-2">
-          {{ post.shortDescription }}
-        </p>
-
-        <!-- Author Info -->
-        <div class="flex items-center justify-between py-6 border-y border-dark-700/50">
-          <div class="flex items-center gap-4">
-            <div class="w-12 h-12 rounded-full bg-dark-800 flex items-center justify-center text-white border border-dark-600 shadow-inner overflow-hidden">
-              <img [src]="'https://api.dicebear.com/7.x/notionists/svg?seed=' + post.authorName" alt="Author" class="w-full h-full object-cover">
-            </div>
-            <div>
-              <p class="text-base font-semibold text-dark-50">{{ post.authorName }}</p>
-              <p class="text-sm text-primary-400">Engineering at Ennovatorz</p>
-            </div>
-          </div>
-          <div class="text-dark-400 text-sm font-medium">Published {{ post.createdAt | date:'MMM d, y' }}</div>
-        </div>
+    } @else  -->
+    @if (post) {
+    <div class="mb-12">
+      <div class="flex items-center gap-4 mb-6">
+        <span
+          class="px-3 py-1 rounded-full bg-primary-500/10 text-primary-400 border border-primary-500/20 text-xs font-bold uppercase tracking-wider">{{
+          post.topic }}</span>
+        <span class="text-sm font-medium text-dark-400">{{ post.readTime }}</span>
       </div>
 
-      <!-- Feature Image -->
-      @if (post.imageUrl) {
-        <div class="w-full h-64 md:h-96 rounded-2xl mb-16 overflow-hidden shadow-2xl">
-          <img [src]="getImageUrl(post.imageUrl)" alt="Cover" crossorigin="anonymous" class="w-full h-full object-cover" />
-        </div>
-      }
+      <h1 class="text-3xl md:text-5xl lg:text-6xl font-bold text-dark-50 mb-8 leading-[1.15]">{{ post.title }}</h1>
 
-      <!-- Article Content -->
-      <article class="prose prose-invert prose-lg max-w-none mb-20 prose-headings:font-bold prose-headings:text-dark-50 prose-a:text-primary-400 prose-a:no-underline hover:prose-a:underline prose-li:text-dark-300 prose-p:text-dark-300 prose-p:leading-relaxed prose-strong:text-dark-50" [innerHTML]="post.content">
-      </article>
+      <p class="text-xl text-dark-300 leading-relaxed mb-10 border-l-4 border-primary-500 pl-6 py-2">
+        {{ post.shortDescription }}
+      </p>
 
-      <!-- CTA / Next Steps -->
-      <div class="glass-card p-10 md:p-14 text-center glow-border rounded-3xl relative overflow-hidden">
-        <div class="absolute inset-0 bg-primary-500/5 mix-blend-overlay"></div>
-        <h3 class="text-2xl md:text-3xl font-bold text-dark-50 mb-4 relative z-10">Did you find this insightful?</h3>
-        <p class="text-lg text-dark-300 mb-8 max-w-2xl mx-auto relative z-10">
-          Subscribe to our newsletter for more technical deep dives, or reach out to our team if you need help scaling your architecture.
-        </p>
-        <div class="flex flex-col sm:flex-row items-center justify-center gap-4 relative z-10">
-          <a routerLink="/contact" class="btn-primary text-base px-8 py-3.5 w-full sm:w-auto">Start a Conversation</a>
-          <!-- <button class="btn-secondary text-base px-8 py-3.5 w-full sm:w-auto">Subscribe</button> -->
+      <!-- Author Info -->
+      <div class="flex items-center justify-between py-6 border-y border-dark-700/50">
+        <div class="flex items-center gap-4">
+          <div
+            class="w-12 h-12 rounded-full bg-dark-800 flex items-center justify-center text-white border border-dark-600 shadow-inner overflow-hidden">
+            <img [src]="'https://api.dicebear.com/7.x/notionists/svg?seed=' + post.authorName" alt="Author"
+              class="w-full h-full object-cover">
+          </div>
+          <div>
+            <p class="text-base font-semibold text-dark-50">{{ post.authorName }}</p>
+            <p class="text-sm text-primary-400">Engineering at Ennovatorz</p>
+          </div>
         </div>
-        <!-- Share on Social -->
-        <!-- <div class="mt-8 pt-8 border-t border-dark-700/30 relative z-10">
+        <div class="text-dark-400 text-sm font-medium">Published {{ post.createdAt | date:'MMM d, y' }}</div>
+      </div>
+    </div>
+
+    <!-- Feature Image -->
+    @if (post.imageUrl) {
+    <div class="w-full h-64 md:h-96 rounded-2xl mb-16 overflow-hidden shadow-2xl">
+      <img [src]="getImageUrl(post.imageUrl)" alt="Cover" crossorigin="anonymous" class="w-full h-full object-cover" />
+    </div>
+    }
+
+    <!-- Article Content -->
+    <article
+      class="prose prose-invert prose-lg max-w-none mb-20 prose-headings:font-bold prose-headings:text-dark-50 prose-a:text-primary-400 prose-a:no-underline hover:prose-a:underline prose-li:text-dark-300 prose-p:text-dark-300 prose-p:leading-relaxed prose-strong:text-dark-50"
+      [innerHTML]="post.content">
+    </article>
+
+    <!-- CTA / Next Steps -->
+    <div class="glass-card p-10 md:p-14 text-center glow-border rounded-3xl relative overflow-hidden">
+      <div class="absolute inset-0 bg-primary-500/5 mix-blend-overlay"></div>
+      <h3 class="text-2xl md:text-3xl font-bold text-dark-50 mb-4 relative z-10">Did you find this insightful?</h3>
+      <p class="text-lg text-dark-300 mb-8 max-w-2xl mx-auto relative z-10">
+        Subscribe to our newsletter for more technical deep dives, or reach out to our team if you need help scaling
+        your architecture.
+      </p>
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4 relative z-10">
+        <a routerLink="/contact" class="btn-primary text-base px-8 py-3.5 w-full sm:w-auto">Start a Conversation</a>
+        <!-- <button class="btn-secondary text-base px-8 py-3.5 w-full sm:w-auto">Subscribe</button> -->
+      </div>
+      <!-- Share on Social -->
+      <!-- <div class="mt-8 pt-8 border-t border-dark-700/30 relative z-10">
           <p class="text-sm text-dark-400 mb-4">Share this article</p>
           <app-social-links [shareMode]="true" [shareTitle]="post.title" size="sm" />
         </div> -->
-      </div>
+    </div>
     } @else {
-      <!-- Not Found State -->
-      <div class="text-center py-32">
-        <h2 class="text-4xl font-bold text-dark-50 mb-4">Post Not Found</h2>
-        <p class="text-dark-300 mb-8">The article you're looking for doesn't exist or has been moved.</p>
-        <a routerLink="/blog" class="btn-primary">Return to Blog</a>
-      </div>
+    <!-- Not Found State -->
+    <div class="text-center py-32">
+      <h2 class="text-4xl font-bold text-dark-50 mb-4">Post Not Found</h2>
+      <p class="text-dark-300 mb-8">The article you're looking for doesn't exist or has been moved.</p>
+      <a routerLink="/blog" class="btn-primary">Return to Blog</a>
+    </div>
     }
   </div>
 </section>

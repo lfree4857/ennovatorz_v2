@@ -1,7 +1,8 @@
 <section class="section-padding pt-32 min-h-screen">
   <div class="max-w-4xl mx-auto text-center mb-16">
     <span class="text-primary-400 font-semibold text-sm uppercase tracking-wider">Insights & Updates</span>
-    <h1 class="section-heading text-dark-50 mt-4 mb-6">The Ennovatorz <span class="gradient-text">Engineering Blog</span>
+    <h1 class="section-heading text-dark-50 mt-4 mb-6">The Ennovatorz <span class="gradient-text">Engineering
+        Blog</span>
     </h1>
     <p class="section-subheading mx-auto text-dark-300">
       Deep dives into software architecture, frontend performance, developer culture, and the tools we use to build
@@ -29,9 +30,10 @@
     </div>
 
     <!-- Featured Post (First one in filtered list, if available) -->
-    @if (loading) {
+    <!-- @if (loading) {
     <div class="text-center py-20 text-dark-400">Loading posts...</div>
-    } @else if (filteredPosts.length > 0) {
+    } @else  -->
+    @if (filteredPosts.length > 0) {
     <div
       class="mb-16 glass-card overflow-hidden group hover:border-primary-500/30 transition-all duration-300 hover:-translate-y-1 glow-border relative cursor-pointer"
       [routerLink]="'/blog/' + filteredPosts[0]._id">
