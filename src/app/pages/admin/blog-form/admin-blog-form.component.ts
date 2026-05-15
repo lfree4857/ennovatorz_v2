@@ -81,7 +81,9 @@ export class AdminBlogFormComponent implements OnInit {
             metaDescription: blog.metaDescription || '',
             keywords: blog.keywords || '',
           });
-          this.tags = Array.isArray(blog.tags) ? [...blog.tags] : [];
+          let rawTags = blog.tags;
+          while (typeof rawTags === 'string') { try { rawTags = JSON.parse(rawTags); } catch { rawTags = (rawTags as string).split(',').map((t: string) => t.trim()).filter(Boolean); break; } }
+          this.tags = Array.isArray(rawTags) ? rawTags.map((t: string) => t.trim()).filter(Boolean) : [];
           // Load existing images
           const rawImages: string[] = blog.images?.length
             ? blog.images
@@ -148,10 +150,10 @@ export class AdminBlogFormComponent implements OnInit {
     formData.append('topic', v.topic!);
     formData.append('authorName', v.authorName!);
     formData.append('readTime', v.readTime!);
-    if (v.metaTitle) formData.append('metaTitle', v.metaTitle);
-    if (v.metaDescription) formData.append('metaDescription', v.metaDescription);
-    if (v.keywords) formData.append('keywords', v.keywords);
-    if (this.tags.length) formData.append('tags', JSON.stringify(this.tags));
+    formData.append('metaTitle', v.metaTitle || '');
+    formData.append('metaDescription', v.metaDescription || '');
+    formData.append('keywords', v.keywords || '');
+    formData.append('tags', this.tags.join(','));
     this.selectedFiles.forEach(file => formData.append('images', file));
     if (this.isEditMode) {
       formData.append('keepImages', JSON.stringify(this.existingImagePaths));

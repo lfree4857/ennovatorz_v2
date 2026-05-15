@@ -55,7 +55,8 @@ export class SeoService {
   }
 
   setPostSeo(post: Blog) {
-    const title = post.metaTitle || post.title;
+    const title = post.title;
+    const metaTitle = post.metaTitle || post.title;
     const description = post.metaDescription || post.shortDescription;
     const keywords = post.keywords || post.tags?.join(', ') || '';
     const baseUrl = 'https://dev.ennovatorz.com';
@@ -66,12 +67,12 @@ export class SeoService {
     this.metaService.updateTag({ name: 'description', content: description });
     if (keywords) this.metaService.updateTag({ name: 'keywords', content: keywords });
 
-    this.metaService.updateTag({ property: 'og:title', content: title });
+    this.metaService.updateTag({ property: 'og:title', content: metaTitle });
     this.metaService.updateTag({ property: 'og:description', content: description });
     this.metaService.updateTag({ property: 'og:url', content: canonical });
     if (ogImage) this.metaService.updateTag({ property: 'og:image', content: ogImage });
 
-    this.metaService.updateTag({ name: 'twitter:title', content: title });
+    this.metaService.updateTag({ name: 'twitter:title', content: metaTitle });
     this.metaService.updateTag({ name: 'twitter:description', content: description });
     if (ogImage) this.metaService.updateTag({ name: 'twitter:image', content: ogImage });
 
