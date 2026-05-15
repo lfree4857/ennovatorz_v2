@@ -1,16 +1,15 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { DatePipe } from '@angular/common';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { BlogService, Blog } from '../../services/blog.service';
 import { SeoService } from '../../core/services/seo.service';
 import { environment } from '../../../environments/environment';
-import { SocialLinksComponent } from '../../shared/components/social-links/social-links.component';
+import { LoaderService } from '../../services/loader.service';
 
 @Component({
   selector: 'app-blog-detail',
   standalone: true,
-  imports: [RouterLink, DatePipe, SocialLinksComponent],
+  imports: [RouterLink],
   templateUrl: './blog-detail.component.html',
   styleUrls: ['./blog-detail.component.scss']
 })
@@ -23,6 +22,7 @@ export class BlogDetailComponent implements OnInit {
   post: Blog | null = null;
   relatedPosts: Blog[] = [];
   loading = true;
+  loaderService = inject(LoaderService);
   carouselIndex = 0;
   sanitizedContent: SafeHtml = '';
 
@@ -53,13 +53,15 @@ export class BlogDetailComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.loaderService.show();
     this.route.paramMap.subscribe(params => {
       const id = params.get('slug');
-      if (!id) { this.loading = false; return; }
+      if (!id) { this.loading = false; this.loaderService.hide(); return; }
       this.blogService.getById(id).subscribe({
         next: (data: any) => {
           this.post = data?._id ? data : (data?.data ?? null);
           this.loading = false;
+          this.loaderService.hide();
           if (this.post) {
             this.seoService.setPostSeo(this.post);
             const cleaned = this.cleanQuillHtml(this.post.content || '');
@@ -72,7 +74,7 @@ export class BlogDetailComponent implements OnInit {
             });
           }
         },
-        error: () => { this.post = null; this.loading = false; }
+        error: () => { this.post = null; this.loading = false; this.loaderService.hide(); }
       });
     });
   }

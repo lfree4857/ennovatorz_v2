@@ -1,4 +1,5 @@
-import { Component, HostListener, OnInit, Renderer2, ChangeDetectorRef } from '@angular/core';
+import { Component, HostListener, OnInit, OnDestroy, Renderer2, ChangeDetectorRef, PLATFORM_ID, Inject } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { NgStyle } from '@angular/common';
 
 @Component({
@@ -6,8 +7,10 @@ import { NgStyle } from '@angular/common';
   standalone: true,
   imports: [NgStyle],
   template: `
-    <div class="cursor-dot" [ngStyle]="{'left.px': dotX, 'top.px': dotY}"></div>
-    <div class="cursor-outline" [ngStyle]="{'left.px': outlineX, 'top.px': outlineY}"></div>
+    @if (!isMobile) {
+      <div class="cursor-dot" [ngStyle]="{'left.px': dotX, 'top.px': dotY}"></div>
+      <div class="cursor-outline" [ngStyle]="{'left.px': outlineX, 'top.px': outlineY}"></div>
+    }
   `,
   styles: [`
     .cursor-dot {
@@ -44,20 +47,51 @@ import { NgStyle } from '@angular/common';
         display: none;
       }
     }
+    @media (max-width: 768px), (pointer: coarse) {
+      .cursor-dot, .cursor-outline {
+        display: none;
+      }
+    }
   `]
 })
-export class CustomCursorComponent implements OnInit {
+export class CustomCursorComponent implements OnInit, OnDestroy {
   dotX = 0;
   dotY = 0;
   outlineX = 0;
   outlineY = 0;
+  isMobile = false;
 
-  constructor(private renderer: Renderer2, private cdr: ChangeDetectorRef) {}
+  private resizeListener: (() => void) | null = null;
 
-  ngOnInit() {}
+  constructor(
+    private renderer: Renderer2,
+    private cdr: ChangeDetectorRef,
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) {}
+
+  ngOnInit() {
+    if (isPlatformBrowser(this.platformId)) {
+      this.checkMobile();
+      this.resizeListener = this.renderer.listen('window', 'resize', () => this.checkMobile());
+    }
+  }
+
+  ngOnDestroy() {
+    if (this.resizeListener) {
+      this.resizeListener();
+    }
+  }
+
+  private checkMobile() {
+    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    const isSmallScreen = window.innerWidth <= 768;
+    this.isMobile = isTouchDevice || isSmallScreen;
+  }
 
   @HostListener('window:mousemove', ['$event'])
   onMouseMove(event: MouseEvent) {
+    if (this.isMobile) return;
+
     this.dotX = event.clientX;
     this.dotY = event.clientY;
 

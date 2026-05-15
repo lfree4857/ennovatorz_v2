@@ -3,6 +3,7 @@ import { RouterLink } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { BlogService, Blog } from '../../services/blog.service';
 import { environment } from '../../../environments/environment';
+import { LoaderService } from '../../services/loader.service';
 
 @Component({
   selector: 'app-blog-list',
@@ -13,6 +14,7 @@ import { environment } from '../../../environments/environment';
 })
 export class BlogListComponent implements OnInit {
   blogService = inject(BlogService);
+  loaderService = inject(LoaderService);
 
   categories: string[] = ['All'];
   activeCategory = 'All';
@@ -20,6 +22,7 @@ export class BlogListComponent implements OnInit {
   loading = true;
 
   ngOnInit() {
+    this.loaderService.show();
     this.blogService.getAll().subscribe({
       next: (data: any) => {
         const blogs = Array.isArray(data) ? data : (data?.data ?? []);
@@ -27,8 +30,12 @@ export class BlogListComponent implements OnInit {
         const topics = [...new Set<string>(blogs.map((p: any) => p.topic).filter(Boolean))];
         this.categories = ['All', ...topics];
         this.loading = false;
+        this.loaderService.hide();
       },
-      error: () => { this.loading = false; }
+      error: () => {
+        this.loading = false;
+        this.loaderService.hide();
+      }
     });
   }
 
