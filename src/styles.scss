@@ -125,7 +125,7 @@ a {
   transition: color 0.2s ease;
 }
 
-/* ===== Blog detail — rich content (Quill output) ===== */
+/* ===== Blog detail - rich editor content ===== */
 .blog-content {
   font-size: 1.125rem;
   line-height: 1.8;
@@ -135,7 +135,7 @@ a {
   max-width: 100%;
   overflow-x: hidden;
 
-  /* Strip Quill inline color/background overrides on spans */
+  /* Strip editor inline color/background overrides on spans */
   span[style*="color"],
   span[style*="background"] {
     color: inherit !important;
@@ -148,11 +148,12 @@ a {
     max-width: 100%;
   }
 
-  /* Fix images — clear Quill float, center, responsive */
+  /* Fix editor images - center, responsive */
   > p img,
   > img,
   > h1 img, > h2 img, > h3 img, > h4 img, > h5 img, > h6 img,
-  > ul img, > ol img, > li img, > blockquote img {
+  > ul img, > ol img, > li img, > blockquote img,
+  figure.image img {
     display: block !important;
     float: none !important;
     max-width: 100% !important;
@@ -163,7 +164,26 @@ a {
     box-shadow: 0 10px 30px rgba(0,0,0,.15);
   }
 
-  /* Quill wraps images in <p> — make sure it doesn't collapse */
+  figure.image {
+    margin: 1.75rem auto;
+    text-align: center;
+  }
+
+  figure.image-style-side {
+    max-width: 50%;
+    margin-left: 1.75rem;
+    float: right;
+  }
+
+  figcaption {
+    margin-top: 0.5rem;
+    color: #64748b;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    text-align: center;
+  }
+
+  /* Some editor outputs wrap images in <p> - make sure it doesn't collapse */
   p:has(> img:only-child) {
     display: block;
     text-align: center;
@@ -205,7 +225,8 @@ a {
   }
 
   pre {
-    background: #f1f5f9;
+    background: #0f172a;
+    color: #e2e8f0;
     border-radius: 0.5rem;
     padding: 1rem 1.25rem;
     overflow-x: auto;
@@ -215,48 +236,18 @@ a {
 
   code {
     background: #f1f5f9;
+    color: #be123c;
     border-radius: 0.25rem;
     padding: 0.15rem 0.4rem;
     font-size: 0.9rem;
   }
-}
 
-/* ===== Quill Editor — Tailwind reset fix ===== */
-.ql-toolbar.ql-snow svg {
-  width: 18px !important;
-  height: 18px !important;
-  display: inline-block !important;
-  float: none !important;
+  pre code {
+    background: transparent;
+    color: inherit;
+    padding: 0;
+  }
 }
-.ql-snow .ql-stroke {
-  fill: none !important;
-  stroke: #64748b !important;
-}
-.ql-snow .ql-fill,
-.ql-snow .ql-stroke.ql-fill {
-  fill: #64748b !important;
-  stroke: none !important;
-}
-.ql-snow .ql-thin,
-.ql-snow .ql-stroke.ql-thin {
-  stroke-width: 1 !important;
-}
-.ql-snow button:hover .ql-stroke,
-.ql-snow .ql-picker-label:hover .ql-stroke {
-  stroke: #0f172a !important;
-}
-.ql-snow button:hover .ql-fill,
-.ql-snow .ql-picker-label:hover .ql-fill {
-  fill: #0f172a !important;
-}
-.ql-snow button.ql-active .ql-stroke {
-  stroke: #4f46e5 !important;
-}
-.ql-snow button.ql-active .ql-fill {
-  fill: #4f46e5 !important;
-}
-.ql-snow .ql-picker-label::before { color: #64748b; }
-.ql-snow .ql-picker-label:hover::before { color: #0f172a; }
 
 /* ===== Button Base ===== */
 .btn-primary {

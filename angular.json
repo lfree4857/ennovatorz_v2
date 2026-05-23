@@ -33,7 +33,7 @@
             "styles": [
               "src/styles.scss",
               "node_modules/aos/dist/aos.css",
-              "node_modules/quill/dist/quill.snow.css"
+              "node_modules/ckeditor5/dist/ckeditor5.css"
             ]
           },
           "configurations": {

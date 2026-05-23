@@ -1,7 +1,40 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, Validators, FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { QuillModule } from 'ngx-quill';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+import {
+  Alignment,
+  Base64UploadAdapter,
+  BlockQuote,
+  Bold,
+  ClassicEditor,
+  Code,
+  CodeBlock,
+  Essentials,
+  FontBackgroundColor,
+  FontColor,
+  FontFamily,
+  FontSize,
+  GeneralHtmlSupport,
+  Heading,
+  Image,
+  ImageInsert,
+  ImageResize,
+  ImageStyle,
+  ImageToolbar,
+  ImageUpload,
+  Italic,
+  Link,
+  List,
+  Paragraph,
+  RemoveFormat,
+  SourceEditing,
+  Strikethrough,
+  Table,
+  TableToolbar,
+  Underline,
+  type EditorConfig,
+} from 'ckeditor5';
 import { BlogService } from '../../../services/blog.service';
 import { ToasterService } from '../../../services/toaster.service';
 import { APP_MESSAGES } from '../../../shared/constants/messages.constant';
@@ -10,7 +43,7 @@ import { environment } from '../../../../environments/environment';
 @Component({
   selector: 'app-admin-blog-form',
   standalone: true,
-  imports: [ReactiveFormsModule, FormsModule, RouterLink, QuillModule],
+  imports: [ReactiveFormsModule, FormsModule, RouterLink, CKEditorModule],
   templateUrl: './admin-blog-form.component.html',
   styleUrls: ['./admin-blog-form.component.scss'],
 })
@@ -31,19 +64,118 @@ export class AdminBlogFormComponent implements OnInit {
 
   topics = ['Engineering', 'Design', 'Culture', 'Company', 'Technology'];
 
-  quillModules = {
-    toolbar: [
-      ['bold', 'italic', 'underline', 'strike'],
-      [{ header: [1, 2, 3, 4, 5, 6, false] }],
-      [{ font: [] }],
-      [{ size: ['small', false, 'large', 'huge'] }],
-      [{ color: [] }, { background: [] }],
-      [{ align: [] }],
-      [{ list: 'ordered' }, { list: 'bullet' }],
-      ['blockquote', 'code-block'],
-      ['link', 'image'],
-      ['clean'],
+  Editor = ClassicEditor;
+
+  editorConfig: EditorConfig = {
+    licenseKey: 'GPL',
+    plugins: [
+      Alignment,
+      Base64UploadAdapter,
+      BlockQuote,
+      Bold,
+      Code,
+      CodeBlock,
+      Essentials,
+      FontBackgroundColor,
+      FontColor,
+      FontFamily,
+      FontSize,
+      GeneralHtmlSupport,
+      Heading,
+      Image,
+      ImageInsert,
+      ImageResize,
+      ImageStyle,
+      ImageToolbar,
+      ImageUpload,
+      Italic,
+      Link,
+      List,
+      Paragraph,
+      RemoveFormat,
+      SourceEditing,
+      Strikethrough,
+      Table,
+      TableToolbar,
+      Underline,
     ],
+    toolbar: {
+      items: [
+        'heading',
+        '|',
+        'bold',
+        'italic',
+        'underline',
+        'strikethrough',
+        'code',
+        '|',
+        'fontFamily',
+        'fontSize',
+        'fontColor',
+        'fontBackgroundColor',
+        '|',
+        'alignment',
+        'bulletedList',
+        'numberedList',
+        'blockQuote',
+        'codeBlock',
+        '|',
+        'link',
+        'insertImage',
+        'insertTable',
+        '|',
+        'sourceEditing',
+        'removeFormat',
+        'undo',
+        'redo',
+      ],
+      shouldNotGroupWhenFull: true,
+    },
+    heading: {
+      options: [
+        { model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' },
+        { model: 'heading1', view: 'h1', title: 'Heading 1', class: 'ck-heading_heading1' },
+        { model: 'heading2', view: 'h2', title: 'Heading 2', class: 'ck-heading_heading2' },
+        { model: 'heading3', view: 'h3', title: 'Heading 3', class: 'ck-heading_heading3' },
+        { model: 'heading4', view: 'h4', title: 'Heading 4', class: 'ck-heading_heading4' },
+      ],
+    },
+    codeBlock: {
+      languages: [
+        { language: 'plaintext', label: 'Plain text' },
+        { language: 'javascript', label: 'JavaScript' },
+        { language: 'typescript', label: 'TypeScript' },
+        { language: 'html', label: 'HTML' },
+        { language: 'css', label: 'CSS' },
+        { language: 'json', label: 'JSON' },
+        { language: 'bash', label: 'Bash' },
+      ],
+    },
+    image: {
+      toolbar: [
+        'imageTextAlternative',
+        '|',
+        'imageStyle:inline',
+        'imageStyle:block',
+        'imageStyle:side',
+        '|',
+        'resizeImage',
+      ],
+    },
+    table: {
+      contentToolbar: ['tableColumn', 'tableRow', 'mergeTableCells'],
+    },
+    htmlSupport: {
+      allow: [
+        {
+          name: /.*/,
+          attributes: true,
+          classes: true,
+          styles: true,
+        },
+      ],
+    },
+    placeholder: 'Write your blog content here...',
   };
 
   tags: string[] = [];

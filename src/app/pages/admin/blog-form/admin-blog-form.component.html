@@ -53,13 +53,13 @@
         <!-- Content -->
         <div>
           <label class="block text-sm font-medium text-dark-300 mb-2">Content <span class="text-red-400">*</span></label>
-          <quill-editor
+          <ckeditor
             formControlName="content"
-            [modules]="quillModules"
-            placeholder="Write your blog content here..."
-            [class.ql-error]="form.get('content')?.invalid && form.get('content')?.touched"
-            class="block w-full rounded-xl overflow-hidden">
-          </quill-editor>
+            [editor]="Editor"
+            [config]="editorConfig"
+            [class.ck-error]="form.get('content')?.invalid && form.get('content')?.touched"
+            class="block w-full">
+          </ckeditor>
           @if (form.get('content')?.invalid && form.get('content')?.touched) {
             <p class="text-red-500 text-xs mt-1">Content is required.</p>
           }

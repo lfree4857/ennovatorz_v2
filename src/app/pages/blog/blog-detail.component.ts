@@ -40,7 +40,7 @@ export class BlogDetailComponent implements OnInit {
   }
 
   /** Strip only color/background-color properties from inline style attributes, preserve others */
-  private cleanQuillHtml(html: string): string {
+  private cleanEditorHtml(html: string): string {
     return html.replace(/style="([^"]*)"/gi, (_match, styles: string) => {
       const cleaned = styles
         .split(';')
@@ -64,7 +64,7 @@ export class BlogDetailComponent implements OnInit {
           this.loaderService.hide();
           if (this.post) {
             this.seoService.setPostSeo(this.post);
-            const cleaned = this.cleanQuillHtml(this.post.content || '');
+            const cleaned = this.cleanEditorHtml(this.post.content || '');
             this.sanitizedContent = this.sanitizer.bypassSecurityTrustHtml(cleaned);
             this.blogService.getAll().subscribe({
               next: (res: any) => {
