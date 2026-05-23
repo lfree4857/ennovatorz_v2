@@ -6,6 +6,7 @@ import { BlogService, Blog } from '../../services/blog.service';
 import { SeoService } from '../../core/services/seo.service';
 import { environment } from '../../../environments/environment';
 import { LoaderService } from '../../services/loader.service';
+import { ToasterService } from '../../services/toaster.service';
 
 @Component({
   selector: 'app-blog-detail',
@@ -19,6 +20,7 @@ export class BlogDetailComponent implements OnInit {
   private blogService = inject(BlogService);
   private seoService = inject(SeoService);
   private sanitizer = inject(DomSanitizer);
+  private toaster = inject(ToasterService);
 
   post: Blog | null = null;
   relatedPosts: Blog[] = [];
@@ -44,6 +46,43 @@ export class BlogDetailComponent implements OnInit {
     if (!post.tags) return [];
     if (Array.isArray(post.tags)) return post.tags.filter(Boolean);
     return String(post.tags).split(',').map(tag => tag.trim()).filter(Boolean);
+  }
+
+  getArticleUrl(): string {
+    if (typeof window === 'undefined') return '';
+    return window.location.href;
+  }
+
+  async copyLink() {
+    const url = this.getArticleUrl();
+    if (!url) return;
+
+    try {
+      await navigator.clipboard.writeText(url);
+      this.toaster.success('Article link copied.');
+    } catch {
+      this.toaster.error('Could not copy the article link.');
+    }
+  }
+
+  async sharePost() {
+    if (!this.post) return;
+    const url = this.getArticleUrl();
+
+    if (typeof navigator !== 'undefined' && navigator.share) {
+      try {
+        await navigator.share({
+          title: this.post.title,
+          text: this.post.shortDescription,
+          url,
+        });
+        return;
+      } catch (error) {
+        if ((error as DOMException)?.name === 'AbortError') return;
+      }
+    }
+
+    await this.copyLink();
   }
 
   /** Strip only color/background-color properties from inline style attributes, preserve others */

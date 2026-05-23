@@ -85,6 +85,34 @@
   margin-top: 1.5rem;
 }
 
+.article-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .75rem;
+  margin-top: 1.5rem;
+
+  button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.7rem 1rem;
+    border: 1px solid rgba(148, 163, 184, 0.32);
+    border-radius: 0.65rem;
+    background: rgba(255, 255, 255, 0.72);
+    color: #334155;
+    font-weight: 600;
+
+    svg {
+      width: 1rem;
+      height: 1rem;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.8;
+    }
+
+  }
+}
+
 .article-media {
   margin: 0 auto 3rem;
   width: min(100%, 820px);
@@ -437,16 +465,5 @@
 
   &:hover h3 {
     color: #a5b4fc;
-  }
-}
-
-:host-context(.theme-dark) .not-found {
-  p {
-    color: #cbd5e1;
-  }
-
-  a {
-    color: #0f172a;
-    background: #f8fafc;
   }
 }
