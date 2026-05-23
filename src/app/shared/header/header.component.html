@@ -19,6 +19,23 @@
 
     <!-- Desktop CTA -->
     <div class="hidden lg:flex items-center gap-3">
+      <button
+        type="button"
+        class="theme-toggle"
+        (click)="themeService.toggleTheme()"
+        [attr.aria-label]="themeService.isDark() ? 'Switch to light theme' : 'Switch to dark theme'"
+        [attr.title]="themeService.isDark() ? 'Switch to light theme' : 'Switch to dark theme'">
+        @if (themeService.isDark()) {
+        <svg aria-hidden="true" viewBox="0 0 24 24">
+          <path d="M12 3v2m0 14v2m9-9h-2M5 12H3m15.36-6.36-1.42 1.42M7.06 16.94l-1.42 1.42m12.72 0-1.42-1.42M7.06 7.06 5.64 5.64" />
+          <circle cx="12" cy="12" r="4" />
+        </svg>
+        } @else {
+        <svg aria-hidden="true" viewBox="0 0 24 24">
+          <path d="M21 14.3A7.5 7.5 0 0 1 9.7 3 8.5 8.5 0 1 0 21 14.3Z" />
+        </svg>
+        }
+      </button>
       <a routerLink="/contact" class="btn-primary text-sm px-5 py-2.5">
         Start Your Project
       </a>
@@ -47,6 +64,9 @@
         {{ link.label }}
       </a>
       }
+      <button type="button" class="theme-toggle mobile-theme-toggle" (click)="themeService.toggleTheme()">
+        {{ themeService.isDark() ? 'Light theme' : 'Dark theme' }}
+      </button>
       <a routerLink="/contact" class="btn-primary text-center mt-4" (click)="closeMobileMenu()">
         Start Your Project
       </a>

@@ -1,6 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { DatePipe } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { BlogService, Blog } from '../../services/blog.service';
 import { environment } from '../../../environments/environment';
 import { LoaderService } from '../../services/loader.service';
@@ -8,7 +9,7 @@ import { LoaderService } from '../../services/loader.service';
 @Component({
   selector: 'app-blog-list',
   standalone: true,
-  imports: [RouterLink, DatePipe],
+  imports: [RouterLink, DatePipe, FormsModule],
   templateUrl: './blog-list.component.html',
   styleUrls: ['./blog-list.component.scss']
 })
@@ -20,6 +21,7 @@ export class BlogListComponent implements OnInit {
   activeCategory = 'All';
   posts: Blog[] = [];
   loading = true;
+  searchTerm = '';
 
   ngOnInit() {
     this.loaderService.show();
@@ -48,11 +50,29 @@ export class BlogListComponent implements OnInit {
   }
 
   get filteredPosts() {
-    if (this.activeCategory === 'All') return this.posts;
-    return this.posts.filter(p => p.topic === this.activeCategory);
+    const query = this.searchTerm.trim().toLowerCase();
+    return this.posts.filter(post => {
+      const matchesCategory = this.activeCategory === 'All' || post.topic === this.activeCategory;
+      if (!query) return matchesCategory;
+
+      const tags = this.getTags(post).join(' ');
+      const searchable = `${post.title} ${post.shortDescription} ${post.topic} ${tags}`.toLowerCase();
+      return matchesCategory && searchable.includes(query);
+    });
   }
 
   setCategory(cat: string) {
     this.activeCategory = cat;
+  }
+
+  getCategoryCount(cat: string): number {
+    if (cat === 'All') return this.posts.length;
+    return this.posts.filter(post => post.topic === cat).length;
+  }
+
+  getTags(post: Blog): string[] {
+    if (!post.tags) return [];
+    if (Array.isArray(post.tags)) return post.tags.filter(Boolean);
+    return String(post.tags).split(',').map(tag => tag.trim()).filter(Boolean);
   }
 }

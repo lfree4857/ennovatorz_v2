@@ -6,6 +6,7 @@ import { CustomCursorComponent } from './shared/components/custom-cursor.compone
 import { LoaderComponent } from './shared/components/loader/loader.component';
 import { ToasterComponent } from './shared/components/toaster/toaster.component';
 import { SeoService } from './core/services/seo.service';
+import { ThemeService } from './services/theme.service';
 import { filter } from 'rxjs/operators';
 import AOS from 'aos';
 
@@ -20,6 +21,7 @@ export class App implements OnInit {
   protected readonly title = signal('Ennovatorz');
   private router = inject(Router);
   private seoService = inject(SeoService);
+  private themeService = inject(ThemeService);
   isAdminRoute = false;
 
   ngOnInit() {

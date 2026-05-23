@@ -2,7 +2,7 @@
   <div class="max-w-6xl mx-auto">
 
     <div class="flex items-center justify-between mb-10">
-      <h1 class="text-2xl font-bold" style="color:#0f172a;">Blog Management</h1>
+      <h1 class="text-2xl font-bold text-dark-50">Blog Management</h1>
       @if (blogs.length > 0) {
         <a routerLink="/admin/blog/create" class="btn-primary">+ New Post</a>
       }
@@ -12,7 +12,7 @@
       <div class="glass-card overflow-hidden">
         <table class="w-full text-sm">
           <thead>
-            <tr class="border-b border-dark-700/50 text-left" style="color:#64748b;">
+            <tr class="border-b border-dark-700/50 text-left text-dark-400">
               <th class="px-6 py-4 font-medium">Title</th>
               <th class="px-6 py-4 font-medium">Topic</th>
               <th class="px-6 py-4 font-medium">Author</th>
@@ -36,17 +36,17 @@
         </table>
       </div>
     } @else if (error) {
-      <div class="text-center py-20" style="color:#ef4444;">{{ error }}</div>
+      <div class="text-center py-20 text-red-500">{{ error }}</div>
     } @else if (!loading && blogs.length === 0) {
       <div class="text-center py-20">
-        <p class="text-lg mb-4" style="color:#64748b;">No blog posts yet.</p>
+        <p class="text-lg mb-4 text-dark-400">No blog posts yet.</p>
         <a routerLink="/admin/blog/create" class="btn-primary">Create your first post</a>
       </div>
     } @else {
       <div class="glass-card overflow-hidden">
         <table class="w-full text-sm">
           <thead>
-            <tr class="border-b border-dark-700/50 text-left" style="color:#64748b;">
+            <tr class="border-b border-dark-700/50 text-left text-dark-400">
               <th class="px-6 py-4 font-medium">Title</th>
               <th class="px-6 py-4 font-medium">Topic</th>
               <th class="px-6 py-4 font-medium">Author</th>
@@ -58,13 +58,13 @@
           <tbody>
             @for (blog of blogs; track blog._id) {
               <tr class="border-b border-dark-700/30 hover:bg-dark-800/30 transition-colors">
-                <td class="px-6 py-4 font-medium max-w-xs truncate" style="color:#0f172a;">{{ blog.title }}</td>
+                <td class="px-6 py-4 font-medium max-w-xs truncate text-dark-50">{{ blog.title }}</td>
                 <td class="px-6 py-4">
                   <span class="px-2 py-1 rounded-full text-xs font-semibold border" style="background-color:#1e293b; color:#818cf8; border-color:#4f46e5;">{{ blog.topic }}</span>
                 </td>
-                <td class="px-6 py-4" style="color:#475569;">{{ blog.authorName }}</td>
-                <td class="px-6 py-4" style="color:#64748b;">{{ blog.readTime }}</td>
-                <td class="px-6 py-4" style="color:#64748b;">{{ blog.createdAt | date:'MMM d, y' }}</td>
+                <td class="px-6 py-4 text-dark-300">{{ blog.authorName }}</td>
+                <td class="px-6 py-4 text-dark-400">{{ blog.readTime }}</td>
+                <td class="px-6 py-4 text-dark-400">{{ blog.createdAt | date:'MMM d, y' }}</td>
                 <td class="px-6 py-4 text-right">
                   <div class="flex items-center justify-end gap-3">
                     <a [routerLink]="'/admin/blog/edit/' + blog._id" class="text-primary-400 hover:text-primary-300 text-xs font-medium transition-colors">Edit</a>

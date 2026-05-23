@@ -1,5 +1,6 @@
-import { Component, signal, HostListener } from '@angular/core';
+import { Component, signal, HostListener, inject } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
+import { ThemeService } from '../../services/theme.service';
 
 @Component({
   selector: 'app-header',
@@ -11,6 +12,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 export class HeaderComponent {
   isScrolled = signal(false);
   isMobileMenuOpen = signal(false);
+  themeService = inject(ThemeService);
 
   navLinks = [
     { label: 'Home', path: '/' },
